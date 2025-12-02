@@ -1,0 +1,22 @@
+const express = require('express');
+const cors = require('cors');
+const morgan = require('morgan');
+
+require('./database'); // conecta MongoDB
+
+const app = express();
+
+// CONFIG
+app.set('port', process.env.PORT || 5000);
+
+// MIDDLEWARES
+app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(morgan('dev'));
+app.use(express.json());
+
+// RUTAS
+app.use('/api/empleados', require('./routes/empleados.routes'));
+
+app.listen(app.get('port'), () => {
+  console.log('✔ Servidor Node en puerto', app.get('port'));
+});
