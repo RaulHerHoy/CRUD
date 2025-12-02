@@ -16,6 +16,8 @@ app.use(express.json());
 
 // RUTAS
 app.use('/api/empleados', require('./routes/empleados.routes'));
+app.use('/api/vehiculos', require('./routes/vehiculos.routes'));
+app.use('/api/carrito', require('./routes/carrito.routes'));
 
 app.listen(app.get('port'), () => {
   console.log('✔ Servidor Node en puerto', app.get('port'));
