@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // RUTAS
-app.use('/api/empleados', require('./routes/empleados.routes'));
+app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use('/api/vehiculos', require('./routes/vehiculos.routes'));
 app.use('/api/carrito', require('./routes/carrito.routes'));
 
