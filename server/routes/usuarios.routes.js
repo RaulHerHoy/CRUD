@@ -4,5 +4,5 @@ const ctrl = require('../controllers/usuarios.controlador');
 
 router.post('/register', ctrl.registrar);
 router.post('/login', ctrl.login);
-
+router.get('/', ctrl.listarU)
 module.exports = router;

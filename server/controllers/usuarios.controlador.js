@@ -35,5 +35,9 @@ ctrl.login = async (req, res) => {
 
   res.json({ token, tipo: user.tipo });
 };
+ctrl.listarU = async (req, res) => {
+  const usuarios = await Usuario.find();
+  res.json(usuarios);
+};
 
 module.exports = ctrl;
