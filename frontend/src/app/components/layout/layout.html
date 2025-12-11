@@ -1,0 +1,39 @@
+<div class="layout">
+
+  <!-- CABECERA -->
+  <header class="header">
+    <h1>Tienda de Vehículos</h1>
+    <nav>
+      <a routerLink="/">Inicio</a>
+      <a routerLink="/login">Iniciar sesión</a>
+      <a routerLink="/registro">Registrarse</a>
+    </nav>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="content">
+
+    <!-- CATEGORÍAS (IZQUIERDA) -->
+    <aside class="left">
+      <app-categorias (seleccionarCategoria)="filtrar($event)"></app-categorias>
+    </aside>
+
+    <!-- PRODUCTOS (CENTRO) -->
+    <main class="center">
+      <app-vehiculos></app-vehiculos>
+    </main>
+
+    <!-- CARRITO (DERECHA) -->
+    <aside class="right">
+      <app-carrito></app-carrito>
+    </aside>
+
+  </div>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="footer">
+    © {{ currentYear }} Tienda de Vehículos - DAM2
+  </footer>
+
+</div>
+

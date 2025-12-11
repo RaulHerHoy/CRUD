@@ -1,0 +1,25 @@
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.lista {
+  list-style: none;
+  padding: 0;
+}
+
+.lista li {
+  padding: 10px;
+  background: white;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 0 5px #ccc;
+}
+
+.lista li:hover {
+  background: #1976d2;
+  color: white;
+  transform: translateX(4px);
+}
