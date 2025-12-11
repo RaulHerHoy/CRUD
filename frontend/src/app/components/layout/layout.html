@@ -15,12 +15,13 @@
 
     <!-- CATEGORÍAS (IZQUIERDA) -->
     <aside class="left">
-      <app-categorias (seleccionarCategoria)="filtrar($event)"></app-categorias>
+      <app-categorias (seleccionarCategoria)="filtrarporcategoria($event)"></app-categorias>
     </aside>
 
     <!-- PRODUCTOS (CENTRO) -->
     <main class="center">
-      <app-vehiculos></app-vehiculos>
+     <app-vehiculos [categoriaSeleccionada]="categoriaSeleccionada"></app-vehiculos>
+
     </main>
 
     <!-- CARRITO (DERECHA) -->

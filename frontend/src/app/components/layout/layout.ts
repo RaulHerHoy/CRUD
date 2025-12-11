@@ -21,4 +21,9 @@ export class LayoutComponent {
   filtrar(cat: string) {
   console.log("Categoría seleccionada:", cat);
 }
+categoriaSeleccionada: string | null = null;
+
+filtrarporcategoria(cat: string) {
+  this.categoriaSeleccionada = cat;
+}
 }
