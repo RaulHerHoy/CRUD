@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VehiculosService } from '../../services/vehiculos.service';
 import { Vehiculo } from '../../models/vehiculo';
@@ -19,11 +19,17 @@ export class Vehiculos implements OnChanges {
   constructor(private vehiculoServ: VehiculosService) {}
 
 ngOnInit() {
-  this.vehiculoServ.listarVehiculos().subscribe(res => {
+  this.vehiculoServ.listarVehiculos().subscribe({
+    next: (res)=>{
+    
+   
+   
     this.vehiculos = res;
-    this.vehiculosFiltrados = res;
-  });
-  alert(this.vehiculos);
+    this.vehiculosFiltrados = res; 
+    
+  },
+  error: (err)=> console.error(err)
+});
 }
 
   ngOnChanges() {
