@@ -1,8 +1,17 @@
 import { HttpInterceptorFn } from '@angular/common/http';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
-  // Obtenemos el token del localStorage
-  const token = localStorage.getItem('token');
+
+  const platformId = inject(PLATFORM_ID);
+
+  let token: string | null = null;
+
+  // ✅ SOLO en navegador
+  if (isPlatformBrowser(platformId)) {
+    token = localStorage.getItem('token');
+  }
 
   // Si hay token, clonamos la petición y añadimos el header Authorization
   if (token) {
