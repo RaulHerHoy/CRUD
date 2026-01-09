@@ -18,12 +18,16 @@ import { RouterLink } from '@angular/router';
 })
 export class LayoutComponent {
   currentYear = new Date().getFullYear();
-  filtrar(cat: string) {
-  console.log("Categoría seleccionada:", cat);
-}
+
 categoriaSeleccionada: string | null = null;
 
-filtrarporcategoria(cat: string) {
+filtrarporcategoria(cat: string | null) {
   this.categoriaSeleccionada = cat;
+  console.log("Categoría seleccionada:", cat);
 }
+
+  borrarFiltros() {
+    this.categoriaSeleccionada = null;
+  }
 }
+
