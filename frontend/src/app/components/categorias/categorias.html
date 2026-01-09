@@ -1,7 +1,16 @@
-<h3>Categorías</h3>
-
-<ul class="lista">
-  <li *ngFor="let c of categorias" (click)="seleccionar(c)">
+<div class="categorias">
+  <button
+    *ngFor="let c of categorias"
+    type="button"
+    class="btn-cat"
+    (click)="seleccionar(c)">
     {{ c }}
-  </li>
-</ul>
+  </button>
+
+  <button
+    type="button"
+    class="btn-clear"
+    (click)="limpiarFiltro()">
+    Borrar filtros
+  </button>
+</div>

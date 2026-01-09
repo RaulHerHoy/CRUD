@@ -23,3 +23,14 @@ h3 {
   color: white;
   transform: translateX(4px);
 }
+.categorias {
+  display: flex;
+  flex-direction: column;   /* 👈 columna */
+  gap: 10px;                /* separación entre botones */
+  width: 100%;
+}
+
+.btn-cat,
+.btn-clear {
+  width: 100%;              /* ocupan todo el ancho */
+}
