@@ -3,11 +3,14 @@ import { Categorias } from '../categorias/categorias';
 import { Vehiculos } from '../vehiculos/vehiculos';
 import { Carrito } from '../carrito/carrito';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [
+    CommonModule,
     RouterLink,
     Categorias,
     Vehiculos,
@@ -15,7 +18,9 @@ import { RouterLink } from '@angular/router';
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.css'
+  
 })
+
 export class LayoutComponent {
   currentYear = new Date().getFullYear();
 

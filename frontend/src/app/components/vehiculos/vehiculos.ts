@@ -2,6 +2,8 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VehiculosService } from '../../services/vehiculos.service';
 import { Vehiculo } from '../../models/vehiculo';
+import { CarritoService } from '../../services/carrito.service';
+
 @Component({
   selector: 'app-vehiculos',
   standalone: true,
@@ -9,28 +11,28 @@ import { Vehiculo } from '../../models/vehiculo';
   templateUrl: './vehiculos.html',
   styleUrl: './vehiculos.css'
 })
-export class Vehiculos implements OnChanges {
+export class Vehiculos implements OnInit, OnChanges {
 
-  vehiculos: Vehiculo[] = [];          // Lista completa desde el backend
-  vehiculosFiltrados: Vehiculo[] = []; // Lista filtrada
-  
+  vehiculos: Vehiculo[] = [];
+  vehiculosFiltrados: Vehiculo[] = [];
+
   @Input() categoriaSeleccionada: string | null = null;
 
-  constructor(private vehiculoServ: VehiculosService) {}
+  constructor(
+    private vehiculoServ: VehiculosService,
+    private carrito: CarritoService   // ✅ AÑADIDO
+  ) {}
 
-ngOnInit() {
-  this.vehiculoServ.listarVehiculos().subscribe({
-    next: (res)=>{
-    
-   
-   
-    this.vehiculos = res;
-    this.vehiculosFiltrados = res; 
-    
-  },
-  error: (err)=> console.error(err)
-});
-}
+  ngOnInit() {
+    this.vehiculoServ.listarVehiculos().subscribe({
+      next: (res) => {
+        this.vehiculos = res;
+        this.vehiculosFiltrados = res;
+        this.aplicarFiltro(); // ✅ por si ya había filtro
+      },
+      error: (err) => console.error(err)
+    });
+  }
 
   ngOnChanges() {
     this.aplicarFiltro();
@@ -45,5 +47,16 @@ ngOnInit() {
     this.vehiculosFiltrados = this.vehiculos.filter(v =>
       v.categoria.toLowerCase() === this.categoriaSeleccionada!.toLowerCase()
     );
+  }
+
+  // ✅ BOTÓN "Añadir al carrito" usará esto
+  addToCart(v: Vehiculo) {
+    this.carrito.add({
+      _id: v._id as string,
+      marca: v.marca,
+      modelo: v.modelo,
+      precio: v.precio,
+      imagen: v.imagen
+    });
   }
 }
