@@ -22,4 +22,9 @@
   </div>
 
   <button *ngIf="items.length > 0" type="button" (click)="vaciar()">Vaciar carrito</button>
+  <button class="btn btn-success"
+        [disabled]="items.length === 0"
+        (click)="formalizarCompra()">
+  Formalizar compra
+</button>
 </div>

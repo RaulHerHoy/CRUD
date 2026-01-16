@@ -24,10 +24,6 @@ export class CarritoService {
   private itemsSubject = new BehaviorSubject<CarritoItem[]>(this.load());
   items$ = this.itemsSubject.asObservable();
 
-  // ======================
-  // LOCAL STORAGE (SSR SAFE)
-  // ======================
-
   private load(): CarritoItem[] {
     if (!this.isBrowser) return [];
 
@@ -48,33 +44,19 @@ export class CarritoService {
     this.itemsSubject.next(items);
   }
 
-  // ======================
-  // MÉTODOS PÚBLICOS
-  // ======================
-
   getItems(): CarritoItem[] {
     return this.itemsSubject.value;
   }
 
   add(
-    vehiculo: {
-      _id: string;
-      marca: string;
-      modelo: string;
-      precio: number;
-      imagen?: string;
-    },
+    vehiculo: { _id: string; marca: string; modelo: string; precio: number; imagen?: string },
     cantidad: number = 1
   ): void {
-
     const items = [...this.getItems()];
     const existente = items.find(i => i._id === vehiculo._id);
 
-    if (existente) {
-      existente.cantidad += cantidad;
-    } else {
-      items.push({ ...vehiculo, cantidad });
-    }
+    if (existente) existente.cantidad += cantidad;
+    else items.push({ ...vehiculo, cantidad });
 
     this.save(items);
   }
@@ -85,9 +67,7 @@ export class CarritoService {
     if (index === -1) return;
 
     items[index].cantidad--;
-    if (items[index].cantidad <= 0) {
-      items.splice(index, 1);
-    }
+    if (items[index].cantidad <= 0) items.splice(index, 1);
 
     this.save(items);
   }
@@ -101,12 +81,10 @@ export class CarritoService {
   }
 
   total(): number {
-    return this.getItems()
-      .reduce((total, item) => total + item.precio * item.cantidad, 0);
+    return this.getItems().reduce((t, item) => t + item.precio * item.cantidad, 0);
   }
 
   count(): number {
-    return this.getItems()
-      .reduce((count, item) => count + item.cantidad, 0);
+    return this.getItems().reduce((c, item) => c + item.cantidad, 0);
   }
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const ventasRoutes = require('./routes/ventas.routes');
 
 require('./database'); // conecta MongoDB
 
@@ -20,6 +21,7 @@ app.use('/api/usuarios', require('./routes/usuarios.routes'));
 app.use("/api/admin", require("./routes/admin.routes"));
 app.use('/api/vehiculos', require('./routes/vehiculos.routes'));
 app.use('/api/carrito', require('./routes/carrito.routes'));
+app.use('/api/ventas', ventasRoutes);
 
 app.listen(app.get('port'), () => {
   console.log('✔ Servidor Node en puerto', app.get('port'));
