@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -15,28 +14,32 @@ import { AuthService } from '../../services/auth.service';
 export class Login {
   email = '';
   password = '';
-  error = '';
+  loading = false;
+  errorMsg = '';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private auth: AuthService
-  ) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
-  login() {
-    this.error = '';
+  submit(ev: Event) {
+    ev.preventDefault();
+    this.errorMsg = '';
+    this.loading = true;
 
-    this.http.post<any>('http://localhost:5000/api/auth/login', {
-      email: this.email,
-      password: this.password
-    }).subscribe({
-     next: (res) => {
-  // si tu backend devuelve "usuario"
-  this.auth.handleLoginSuccess({ token: res.token, user: res.usuario });
-},
+    this.auth.login(this.email, this.password).subscribe({
+      next: (res) => {
+        this.loading = false;
 
-      error: () => {
-        this.error = 'Email o contraseña incorrectos';
+        if (!res.ok) {
+          this.errorMsg = res.msg || 'Login incorrecto';
+          return;
+        }
+
+        // ✅ si llega aquí, token guardado
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('LOGIN ERROR 👉', err);
+        this.errorMsg = err?.error?.msg || 'Servidor no disponible / URL incorrecta';
       }
     });
   }

@@ -1,105 +1,62 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 
-export type UsuarioAuth = {
-  _id: string;
-  nombre: string;
-  email: string;
-  tipo: 'normal' | 'premium' | 'vip';
-  rol: 'buyer' | 'admin';
+export type LoginResponse = {
+  ok: boolean;
+  token?: string;
+  usuario?: {
+    _id: string;
+    nombre: string;
+    email: string;
+    rol: string;
+    tipo: string;
+  };
+  msg?: string;
 };
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
+  // ✅ AJUSTA ESTO A TU RUTA REAL
+  // Si en server/index.js haces: app.use('/api/auth', require('./routes/auth.routes'))
+  // entonces BASE = 'http://localhost:5000/api/auth'
+  private BASE = 'http://localhost:5000/api/auth';
 
-  private readonly API = 'http://localhost:5000/api/auth';
-  private readonly TOKEN_KEY = 'token';
+  private TOKEN_KEY = 'token';
+  private USER_KEY = 'usuario';
 
-  private platformId = inject(PLATFORM_ID);
-  private isBrowser = isPlatformBrowser(this.platformId);
+  constructor(private http: HttpClient) {}
 
-  private userSubject = new BehaviorSubject<UsuarioAuth | null>(this.loadUser());
-  user$ = this.userSubject.asObservable();
-
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {}
-
-  // ======================
-  // LOCAL STORAGE (SSR SAFE)
-  // ======================
-
-  private loadUser(): UsuarioAuth | null {
-    if (!this.isBrowser) return null;
-
-    const raw = localStorage.getItem('user');
-    if (!raw) return null;
-
-    try {
-      return JSON.parse(raw) as UsuarioAuth;
-    } catch {
-      return null;
-    }
+  login(email: string, password: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.BASE}/login`, { email, password }).pipe(
+      tap(res => {
+        if (res?.ok && res.token) {
+          localStorage.setItem(this.TOKEN_KEY, res.token);
+          if (res.usuario) localStorage.setItem(this.USER_KEY, JSON.stringify(res.usuario));
+        }
+      })
+    );
   }
 
-  private saveSession(token: string, user: UsuarioAuth): void {
-    if (this.isBrowser) {
-      localStorage.setItem(this.TOKEN_KEY, token);
-      localStorage.setItem('user', JSON.stringify(user));
-    }
-    this.userSubject.next(user);
-  }
-
-  private clearSession(): void {
-    if (this.isBrowser) {
-      localStorage.removeItem(this.TOKEN_KEY);
-      localStorage.removeItem('user');
-    }
-    this.userSubject.next(null);
-  }
-
-  // ======================
-  // AUTH
-  // ======================
-
-  login(email: string, password: string) {
-    return this.http.post<any>(`${this.API}/login`, { email, password });
-  }
-
-  handleLoginSuccess(res: any): void {
-    this.saveSession(res.token, res.user);
-    this.router.navigate(['/']);
+  registro(nombre: string, email: string, password: string): Observable<any> {
+    return this.http.post(`${this.BASE}/registro`, { nombre, email, password });
   }
 
   logout(): void {
-    this.clearSession();
-    this.router.navigate(['/login']);
-  }
-
-  // ======================
-  // HELPERS
-  // ======================
-
-  isLogged(): boolean {
-    return !!this.userSubject.value;
-  }
-
-  isAdmin(): boolean {
-    return this.userSubject.value?.rol === 'admin';
+    localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.removeItem(this.USER_KEY);
   }
 
   getToken(): string | null {
-    if (!this.isBrowser) return null;
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  getUser(): UsuarioAuth | null {
-    return this.userSubject.value;
+  getUsuario(): any | null {
+    const raw = localStorage.getItem(this.USER_KEY);
+    return raw ? JSON.parse(raw) : null;
+  }
+
+  isLogged(): boolean {
+    return !!this.getToken();
   }
 }

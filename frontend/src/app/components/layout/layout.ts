@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Categorias } from '../categorias/categorias';
 import { Vehiculos } from '../vehiculos/vehiculos';
 import { Carrito } from '../carrito/carrito';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 
@@ -14,8 +14,9 @@ import { AuthService } from '../../services/auth.service';
     RouterLink,
     Categorias,
     Vehiculos,
-    Carrito
-  ],
+    Carrito,
+    RouterOutlet
+],
   templateUrl: './layout.html',
   styleUrl: './layout.css'
   
