@@ -1,16 +1,8 @@
-const jwt = require("jsonwebtoken");
+// Middleware de autenticación desactivado
+// En esta versión del proyecto no se utilizan tokens JWT
+// La sesión se gestiona desde el frontend mediante LocalStorage
 
 module.exports = function authJWT(req, res, next) {
-  try {
-    const header = req.header("Authorization");
-    const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
-
-    if (!token) return res.status(401).json({ ok: false, msg: "No token" });
-
-    const payload = jwt.verify(token, process.env.JWT_SECRET || "dev_secret");
-    req.user = payload; // aquí vienen id, rol, tipo...
-    next();
-  } catch {
-    return res.status(401).json({ ok: false, msg: "Token inválido" });
-  }
+  // Permite pasar siempre a la siguiente función
+  next();
 };

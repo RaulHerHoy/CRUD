@@ -1,0 +1,56 @@
+<div class="mis-compras">
+
+  <h2>Mis compras</h2>
+
+  <!-- Cargando -->
+  <p *ngIf="loading">Cargando historial...</p>
+
+  <!-- Error -->
+  <p class="error" *ngIf="!loading && errorMsg">{{ errorMsg }}</p>
+
+  <!-- No hay compras -->
+  <p *ngIf="!loading && !errorMsg && compras.length === 0">
+    Aún no has realizado ninguna compra.
+  </p>
+
+  <!-- Acordeón -->
+  <div class="accordion" *ngIf="!loading && !errorMsg && compras.length > 0">
+
+    <!-- Cada compra -->
+    <div class="accordion-item" *ngFor="let v of compras">
+
+      <!-- Cabecera: SOLO ID (lo que tú quieres) -->
+      <button
+        type="button"
+        class="accordion-header"
+        (click)="toggleVenta(v._id)">
+
+        <!-- Muestra solo el ID -->
+        <span class="venta-id">{{ v._id }}</span>
+
+        <!-- Flechita para indicar abierto/cerrado -->
+        <span class="chevron" [class.open]="estaAbierta(v._id)">⌄</span>
+      </button>
+
+      <!-- Contenido: detalles (solo si está abierta) -->
+      <div class="accordion-body" *ngIf="estaAbierta(v._id)">
+
+        <div class="venta-resumen">
+          <div><strong>Total:</strong> {{ v.total }} €</div>
+          <div><strong>Unidades:</strong> {{ unidades(v) }}</div>
+          <div *ngIf="v.createdAt"><strong>Fecha:</strong> {{ v.createdAt | date:'short' }}</div>
+          <div><strong>Estado:</strong> {{ v.estado || 'CONFIRMADA' }}</div>
+        </div>
+
+        <ul class="lineas">
+          <li *ngFor="let l of v.lineas">
+            {{ l.titulo }} — {{ l.cantidad }} x {{ l.precio }} €
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
