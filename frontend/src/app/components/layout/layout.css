@@ -1,54 +1,161 @@
+/* =========================
+   LAYOUT GENERAL
+   ========================= */
+
+/* Contenedor principal */
 .layout {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* HEADER */
+/* =========================
+   CABECERA
+   ========================= */
+
 .header {
-  background: #1e88e5;
-  color: white;
-  padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 24px;
+  background-color: #1f2937; /* gris oscuro */
+  color: #ffffff;
 }
 
-.header nav a {
-  color: white;
-  margin-left: 15px;
-  text-decoration: none;
-  font-weight: bold;
+/* Título */
+.header h1 {
+  margin: 0;
+  font-size: 22px;
 }
 
-/* CONTENIDO PRINCIPAL */
-.content {
+/* Navegación */
+.header nav {
   display: flex;
-  flex: 1;
+  align-items: center;
+  gap: 12px;
 }
 
-/* COLUMNAS */
-.left {
-  width: 20%;
-  background: #eceff1;
-  padding: 10px;
+/* Enlaces */
+.header nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
 }
+
+.header nav a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   CONTENIDO PRINCIPAL
+   ========================= */
+
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f3f4f6; /* gris claro */
+}
+
+/* =========================
+   COLUMNA IZQUIERDA (categorías)
+   ========================= */
+
+.left {
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+/* =========================
+   COLUMNA CENTRAL (vehículos / rutas)
+   ========================= */
 
 .center {
-  width: 60%;
-  padding: 10px;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  min-height: 300px;
 }
+
+/* =========================
+   COLUMNA DERECHA (carrito)
+   ========================= */
 
 .right {
-  width: 20%;
-  background: #eceff1;
-  padding: 10px;
+  background-color: #ffffff;
+  padding: 12px;
+  border-radius: 10px;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+   ========================= */
+
 .footer {
-  background: #1e88e5;
-  color: white;
   text-align: center;
-  padding: 10px;
+  padding: 12px;
+  background-color: #1f2937;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* =========================
+   USUARIO / LOGOUT
+   ========================= */
+
+/* Nombre del usuario */
+.user {
+  margin-left: 12px;
+  font-weight: 600;
+}
+
+/* Botón de cerrar sesión */
+.logout-btn {
+  margin-left: 12px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #ef4444; /* rojo suave */
+  color: #ffffff;
+}
+
+/* Hover del botón */
+.logout-btn:hover {
+  filter: brightness(0.95);
+}
+
+/* =========================
+   AVISO CARRITO
+   ========================= */
+
+.carrito-aviso {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0.9;
+  background-color: #fef3c7; /* amarillo suave */
+}
+
+/* =========================
+   RESPONSIVE (móvil)
+   ========================= */
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .left,
+  .right {
+    order: 2;
+  }
+
+  .center {
+    order: 1;
+  }
 }

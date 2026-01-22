@@ -1,0 +1,73 @@
+.mis-compras {
+  padding: 8px;
+}
+
+.error {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* Contenedor del acordeón */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Item del acordeón */
+.accordion-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* Cabecera clicable */
+.accordion-header {
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: #f9fafb;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ID de venta (solo esto se ve cuando está cerrado) */
+.venta-id {
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Flecha */
+.chevron {
+  transition: transform 0.15s ease;
+  opacity: 0.8;
+}
+
+.chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Cuerpo desplegable */
+.accordion-body {
+  padding: 12px 14px;
+}
+
+/* Resumen */
+.venta-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+/* Lista de líneas */
+.lineas {
+  margin: 10px 0 0;
+  padding-left: 16px;
+}
