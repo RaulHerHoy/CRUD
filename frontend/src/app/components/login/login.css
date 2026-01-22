@@ -1,7 +1,14 @@
-form {
-  max-width: 300px;
-  margin: 40px auto;
+.login-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* resta header */
+}
+
+.login-card {
+  width: 320px;
+  padding: 2rem;
+  border-radius: 8px;
+  background: #f5f5f5;
+  box-shadow: 0 4px 10px rgba(0,0,0,.2);
 }

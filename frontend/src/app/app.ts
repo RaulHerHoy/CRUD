@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LayoutComponent } from './components/layout/layout';
+import { Component } from '@angular/core';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { LayoutComponent } from "./components/layout/layout";
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LayoutComponent],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, LayoutComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('CRUD');
-}
+export class App {}
