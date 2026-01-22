@@ -1,17 +1,87 @@
 <h2>Vehículos disponibles</h2>
 
+<!-- =========================
+     PANEL ADMIN (solo admins)
+     ========================= -->
+<div class="admin-panel" *ngIf="esAdmin">
+
+  <h3>
+    {{ modoEdicion ? 'Editar vehículo' : 'Añadir nuevo vehículo' }}
+  </h3>
+
+  <div class="admin-form">
+    <input
+      type="text"
+      placeholder="Marca"
+      [(ngModel)]="form.marca">
+
+    <input
+      type="text"
+      placeholder="Modelo"
+      [(ngModel)]="form.modelo">
+
+    <input
+      type="number"
+      placeholder="Precio"
+      [(ngModel)]="form.precio">
+
+    <input
+      type="text"
+      placeholder="Categoría"
+      [(ngModel)]="form.categoria">
+
+    <input
+      type="text"
+      placeholder="URL de imagen"
+      [(ngModel)]="form.imagen">
+  </div>
+
+  <div class="admin-actions">
+    <button (click)="guardarVehiculo()">
+      {{ modoEdicion ? 'Guardar cambios' : 'Crear vehículo' }}
+    </button>
+
+    <button *ngIf="modoEdicion" class="cancel" (click)="nuevoVehiculo()">
+      Cancelar
+    </button>
+  </div>
+
+  <hr>
+</div>
+
+<!-- =========================
+     LISTADO DE VEHÍCULOS
+     ========================= -->
 <div class="grid">
   <div class="card" *ngFor="let v of vehiculosFiltrados">
 
+    <!-- Imagen del vehículo -->
     <img [src]="v.imagen" alt="Vehículo">
 
+    <!-- Información -->
     <div class="info">
       <h3>{{ v.marca }} {{ v.modelo }}</h3>
       <p class="precio">{{ v.precio }} €</p>
+      <p class="categoria">{{ v.categoria }}</p>
     </div>
 
-    <button type="button" (click)="addToCart(v)">Añadir al carrito</button>
+    <!-- Acciones normales -->
+    <button type="button" (click)="addToCart(v)">
+      Añadir al carrito
+    </button>
 
+    <!-- =========================
+         ACCIONES ADMIN
+         ========================= -->
+    <div class="admin-buttons" *ngIf="esAdmin">
+      <button class="edit" (click)="editarVehiculo(v)">
+        Editar
+      </button>
+
+      <button class="delete" (click)="eliminarVehiculo(v._id!)">
+        Eliminar
+      </button>
+    </div>
 
   </div>
 </div>
