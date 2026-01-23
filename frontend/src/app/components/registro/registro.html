@@ -1,17 +1,50 @@
-<h2>Registro</h2>
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-head">
+      <h2>Registro</h2>
+      <p class="muted">Crea tu cuenta para comprar y guardar tu historial.</p>
+    </div>
 
-<form (ngSubmit)="registrar()">
-  <label>Nombre</label>
-  <input type="text" [(ngModel)]="nombre" name="nombre" required>
+    <form class="auth-form" (ngSubmit)="registrar()">
+      <label class="field">
+        <span>Nombre</span>
+        <input
+          type="text"
+          [(ngModel)]="nombre"
+          name="nombre"
+          placeholder="Tu nombre"
+          required
+        />
+      </label>
 
-  <label>Email</label>
-  <input type="email" [(ngModel)]="email" name="email" required>
+      <label class="field">
+        <span>Email</span>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="tu@email.com"
+          required
+        />
+      </label>
 
-  <label>Contraseña</label>
-  <input type="password" [(ngModel)]="password" name="password" required>
+      <label class="field">
+        <span>Contraseña</span>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
+      </label>
 
-  <button type="submit">Registrarse</button>
-</form>
+      <button type="submit" class="btn-primary">Registrarse</button>
+    </form>
 
-<p style="color:green" *ngIf="mensaje">{{ mensaje }}</p>
-<p style="color:red" *ngIf="error">{{ error }}</p>
+    <div class="alerts">
+      <p class="ok" *ngIf="mensaje">{{ mensaje }}</p>
+      <p class="bad" *ngIf="error">{{ error }}</p>
+    </div>
+  </div>
+</div>

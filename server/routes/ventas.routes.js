@@ -4,8 +4,11 @@ const router = express.Router();
 
 // Importa el modelo Venta
 const Venta = require('../models/venta');
+
+// =====================================================
 // GET /api/ventas/usuario/:id
-// Devuelve el historial de compras de un usuario (ordenadas de más nuevas a más antiguas)
+// Devuelve el historial de compras de un usuario
+// =====================================================
 router.get('/usuario/:id', async (req, res) => {
   try {
     // Recoge el id del usuario desde la URL
@@ -23,8 +26,26 @@ router.get('/usuario/:id', async (req, res) => {
   }
 });
 
+// =====================================================
+// GET /api/ventas
+// Devuelve TODAS las ventas (para admin)
+// =====================================================
+router.get('/', async (req, res) => {
+  try {
+    const ventas = await Venta.find()
+      .sort({ createdAt: -1 });
+
+    return res.json(ventas);
+  } catch (err) {
+    console.error('ERROR LISTANDO TODAS LAS VENTAS 👉', err);
+    return res.status(500).json({ msg: 'Error obteniendo todas las ventas' });
+  }
+});
+
+// =====================================================
 // POST /api/ventas
 // Crea una venta a partir del carrito
+// =====================================================
 router.post('/', async (req, res) => {
   try {
     // Se obtiene el id del usuario y las líneas de venta desde el body
@@ -45,21 +66,34 @@ router.post('/', async (req, res) => {
     const venta = await Venta.create({
       usuarioId: usuarioId || null, // Se asocia la venta al usuario logueado
       lineas: lineas.map(l => ({
-        vehiculoId: l.vehiculoId,     // Id del vehículo
-        titulo: l.titulo,             // Marca + modelo
-        precio: Number(l.precio),     // Precio unitario
-        cantidad: Number(l.cantidad || 1) // Cantidad comprada
+        vehiculoId: l.vehiculoId,
+        titulo: l.titulo,
+        precio: Number(l.precio),
+        cantidad: Number(l.cantidad || 1)
       })),
-      total                             // Total calculado
+      total
     });
 
     // Devuelve la venta creada
     return res.status(201).json(venta);
 
   } catch (err) {
-    // Muestra error en consola y devuelve mensaje genérico
     console.error('ERROR CREANDO VENTA 👉', err);
     return res.status(500).json({ msg: 'Error creando la venta' });
+  }
+});
+
+// =====================================================
+// DELETE /api/ventas/:id
+// Elimina una venta (solo visible para admin en frontend)
+// =====================================================
+router.delete('/:id', async (req, res) => {
+  try {
+    await Venta.findByIdAndDelete(req.params.id);
+    return res.json({ msg: 'Venta eliminada correctamente' });
+  } catch (err) {
+    console.error('ERROR ELIMINANDO VENTA 👉', err);
+    return res.status(400).json({ msg: 'Error eliminando la venta' });
   }
 });
 

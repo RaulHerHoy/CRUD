@@ -21,7 +21,7 @@ export interface LineaVentaDTO {
 
 // Datos necesarios para crear una venta
 export interface CrearVentaDTO {
-  usuarioId?: string;       // ID del usuario (opcional, pero recomendado)
+  usuarioId?: string;       // ID del usuario (opcional)
   lineas: LineaVentaDTO[];  // Lista de productos comprados
 }
 
@@ -31,10 +31,8 @@ export interface CrearVentaDTO {
 export class VentasService {
 
   // URL base del backend para las ventas
-  // (tu servidor Node está escuchando en el puerto 5000)
   private API = 'http://localhost:5000/api/ventas';
 
-  // Inyecta HttpClient
   constructor(private http: HttpClient) {}
 
   // =========================================
@@ -46,10 +44,26 @@ export class VentasService {
   }
 
   // =========================================
-  // OBTIENE EL HISTORIAL DE COMPRAS DE UN USUARIO
+  // HISTORIAL DE COMPRAS DE UN USUARIO
   // =========================================
   obtenerMisCompras(usuarioId: string): Observable<any[]> {
     // GET /api/ventas/usuario/:id
     return this.http.get<any[]>(`${this.API}/usuario/${usuarioId}`);
+  }
+
+  // =========================================
+  // TODAS LAS COMPRAS (ADMIN)
+  // =========================================
+  obtenerTodas(): Observable<any[]> {
+    // GET /api/ventas
+    return this.http.get<any[]>(this.API);
+  }
+
+  // =========================================
+  // BORRAR UNA COMPRA (ADMIN)
+  // =========================================
+  borrarVenta(id: string): Observable<any> {
+    // DELETE /api/ventas/:id
+    return this.http.delete(`${this.API}/${id}`);
   }
 }
