@@ -1,84 +1,85 @@
 <h2>Vehículos disponibles</h2>
 
 <!-- =========================
-     PANEL ADMIN (solo admins)
+     PANEL ADMIN (solo admin)
      ========================= -->
 <div class="admin-panel" *ngIf="esAdmin">
+  <div class="admin-head">
+    <div>
+      <h3>{{ modoEdicion ? 'Editar vehículo' : 'Añadir nuevo vehículo' }}</h3>
+      <p class="muted">
+        Completa los datos y pulsa <strong>{{ modoEdicion ? 'Guardar cambios' : 'Crear vehículo' }}</strong>.
+      </p>
+    </div>
 
-  <h3>
-    {{ modoEdicion ? 'Editar vehículo' : 'Añadir nuevo vehículo' }}
-  </h3>
+    <button type="button" class="btn btn-ghost" (click)="nuevoVehiculo()">
+      Nuevo
+    </button>
+  </div>
 
   <div class="admin-form">
-    <input
-      type="text"
-      placeholder="Marca"
-      [(ngModel)]="form.marca">
+    <div class="field">
+      <label>Marca</label>
+      <input type="text" [(ngModel)]="form.marca" placeholder="Ej: Seat" />
+    </div>
 
-    <input
-      type="text"
-      placeholder="Modelo"
-      [(ngModel)]="form.modelo">
+    <div class="field">
+      <label>Modelo</label>
+      <input type="text" [(ngModel)]="form.modelo" placeholder="Ej: Ibiza" />
+    </div>
 
-    <input
-      type="number"
-      placeholder="Precio"
-      [(ngModel)]="form.precio">
+    <div class="field">
+      <label>Precio (€)</label>
+      <input type="number" [(ngModel)]="form.precio" min="0" placeholder="11900" />
+    </div>
 
-    <input
-      type="text"
-      placeholder="Categoría"
-      [(ngModel)]="form.categoria">
+    <div class="field">
+      <label>Categoría</label>
+      <input type="text" [(ngModel)]="form.categoria" placeholder="Ej: Compacto / SUV / Motocicletas" />
+    </div>
 
-    <input
-      type="text"
-      placeholder="URL de imagen"
-      [(ngModel)]="form.imagen">
+    <div class="field field-wide">
+      <label>URL de imagen</label>
+      <input type="text" [(ngModel)]="form.imagen" placeholder="https://..." />
+    </div>
+
+    <div class="field actions">
+      <button type="button" class="btn btn-primary" (click)="guardarVehiculo()">
+        {{ modoEdicion ? 'Guardar cambios' : 'Crear vehículo' }}
+      </button>
+
+      <span class="chip" *ngIf="modoEdicion && editId">
+        Editando: {{ editId }}
+      </span>
+    </div>
   </div>
-
-  <div class="admin-actions">
-    <button (click)="guardarVehiculo()">
-      {{ modoEdicion ? 'Guardar cambios' : 'Crear vehículo' }}
-    </button>
-
-    <button *ngIf="modoEdicion" class="cancel" (click)="nuevoVehiculo()">
-      Cancelar
-    </button>
-  </div>
-
-  <hr>
 </div>
 
 <!-- =========================
-     LISTADO DE VEHÍCULOS
+     GRID VEHÍCULOS
      ========================= -->
 <div class="grid">
   <div class="card" *ngFor="let v of vehiculosFiltrados">
 
-    <!-- Imagen del vehículo -->
-    <img [src]="v.imagen" alt="Vehículo">
+    <img [src]="v.imagen" alt="Vehículo" />
 
-    <!-- Información -->
     <div class="info">
       <h3>{{ v.marca }} {{ v.modelo }}</h3>
       <p class="precio">{{ v.precio }} €</p>
       <p class="categoria">{{ v.categoria }}</p>
     </div>
 
-    <!-- Acciones normales -->
-    <button type="button" (click)="addToCart(v)">
+    <!-- Añadir al carrito (moderno) -->
+    <button class="btn btn-cart" type="button" (click)="addToCart(v)">
       Añadir al carrito
     </button>
 
-    <!-- =========================
-         ACCIONES ADMIN
-         ========================= -->
-    <div class="admin-buttons" *ngIf="esAdmin">
-      <button class="edit" (click)="editarVehiculo(v)">
+    <!-- Acciones admin -->
+    <div class="admin-actions" *ngIf="esAdmin">
+      <button class="btn btn-edit" type="button" (click)="editarVehiculo(v)">
         Editar
       </button>
-
-      <button class="delete" (click)="eliminarVehiculo(v._id!)">
+      <button class="btn btn-del" type="button" (click)="eliminarVehiculo(v._id!)">
         Eliminar
       </button>
     </div>

@@ -1,73 +1,107 @@
 <div class="mis-compras">
 
-  <!-- Título distinto según rol -->
-  <h2 *ngIf="!esAdmin">Mis compras</h2>
-  <h2 *ngIf="esAdmin">Todas las compras (ADMIN)</h2>
+  <div class="mc-header">
+    <div class="mc-title">
+      <h2 *ngIf="!esAdmin">Mis compras</h2>
+      <h2 *ngIf="esAdmin">Todas las compras</h2>
+      <p class="mc-subtitle" *ngIf="!loading && !errorMsg">
+        {{ esAdmin ? 'Vista de administración: historial completo' : 'Tu historial de compras' }}
+      </p>
+    </div>
+  </div>
 
-  <!-- Cargando -->
-  <p *ngIf="loading">Cargando historial...</p>
+  <!-- Estado: loading -->
+  <div class="mc-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Cargando historial...</span>
+  </div>
 
-  <!-- Error -->
-  <p class="error" *ngIf="!loading && errorMsg">{{ errorMsg }}</p>
+  <!-- Estado: error -->
+  <div class="mc-alert mc-alert--error" *ngIf="!loading && errorMsg">
+    {{ errorMsg }}
+  </div>
 
-  <!-- No hay compras -->
-  <p *ngIf="!loading && !errorMsg && compras.length === 0">
+  <!-- Estado: vacío -->
+  <div class="mc-alert" *ngIf="!loading && !errorMsg && compras.length === 0">
     No hay compras registradas.
-  </p>
+  </div>
 
   <!-- Acordeón -->
   <div class="accordion" *ngIf="!loading && !errorMsg && compras.length > 0">
 
-    <!-- Cada compra -->
     <div class="accordion-item" *ngFor="let v of compras">
 
-      <!-- Cabecera: SOLO ID -->
       <button
         type="button"
         class="accordion-header"
+        [class.is-open]="estaAbierta(v._id)"
         (click)="toggleVenta(v._id)">
 
-        <!-- ID de la venta -->
-        <span class="venta-id">{{ v._id }}</span>
+        <div class="venta-left">
+          <span class="badge">ID</span>
+          <span class="venta-id">{{ v._id }}</span>
+        </div>
 
-        <!-- Botón borrar SOLO ADMIN -->
-        <button
-          *ngIf="esAdmin"
-          type="button"
-          class="btn-borrar"
-          (click)="$event.stopPropagation(); borrarVenta(v._id)">
-          🗑️
-        </button>
+        <div class="venta-right">
+          <span class="pill" *ngIf="v.total != null">{{ v.total }} €</span>
 
-        <!-- Flechita -->
-        <span class="chevron" [class.open]="estaAbierta(v._id)">⌄</span>
+          <button
+            *ngIf="esAdmin"
+            type="button"
+            class="btn-icon danger"
+            title="Borrar compra"
+            (click)="$event.stopPropagation(); borrarVenta(v._id)">
+            🗑️
+          </button>
+
+          <span class="chevron" [class.open]="estaAbierta(v._id)">⌄</span>
+        </div>
       </button>
 
-      <!-- Contenido -->
       <div class="accordion-body" *ngIf="estaAbierta(v._id)">
 
         <div class="venta-resumen">
-          <div><strong>Total:</strong> {{ v.total }} €</div>
-          <div><strong>Unidades:</strong> {{ unidades(v) }}</div>
-          <div *ngIf="v.createdAt">
-            <strong>Fecha:</strong> {{ v.createdAt | date:'short' }}
+          <div class="resumen-item">
+            <span class="k">Total</span>
+            <span class="v">{{ v.total }} €</span>
           </div>
-          <div><strong>Estado:</strong> {{ v.estado || 'CONFIRMADA' }}</div>
 
-          <!-- Si es admin, mostramos a qué usuario pertenece -->
-          <div *ngIf="esAdmin">
-            <strong>Usuario:</strong> {{ v.usuarioId || 'null' }}
+          <div class="resumen-item">
+            <span class="k">Unidades</span>
+            <span class="v">{{ unidades(v) }}</span>
+          </div>
+
+          <div class="resumen-item" *ngIf="v.createdAt">
+            <span class="k">Fecha</span>
+            <span class="v">{{ v.createdAt | date:'short' }}</span>
+          </div>
+
+          <div class="resumen-item">
+            <span class="k">Estado</span>
+            <span class="v estado">{{ v.estado || 'CONFIRMADA' }}</span>
+          </div>
+
+          <div class="resumen-item" *ngIf="esAdmin">
+            <span class="k">Usuario</span>
+            <span class="v mono">{{ v.usuarioId || 'null' }}</span>
           </div>
         </div>
 
-        <ul class="lineas">
-          <li *ngFor="let l of v.lineas">
-            {{ l.titulo }} — {{ l.cantidad }} x {{ l.precio }} €
-          </li>
-        </ul>
+        <div class="lineas-wrap">
+          <h4>Detalle</h4>
+
+          <ul class="lineas">
+            <li *ngFor="let l of v.lineas">
+              <div class="linea-titulo">{{ l.titulo }}</div>
+              <div class="linea-meta">
+                <span>{{ l.cantidad }} x {{ l.precio }} €</span>
+                <span class="linea-subtotal">{{ (l.cantidad * l.precio) }} €</span>
+              </div>
+            </li>
+          </ul>
+        </div>
 
       </div>
-
     </div>
 
   </div>

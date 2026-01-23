@@ -1,4 +1,118 @@
-.cart { padding: 10px; border: 1px solid #ddd; border-radius: 8px; background: #fff; }
-.item { display:flex; justify-content:space-between; gap:10px; padding:8px 0; }
-.actions button { margin-left: 6px; }
-.total { margin-top: 10px; }
+/* =========================
+   CARD CARRITO
+   ========================= */
+.cart{
+  padding:16px;
+  border-radius:20px;
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(17,24,39,.12);
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+.cart h3{
+  margin:0 0 12px;
+  font-size:18px;
+  font-weight:800;
+  color:#0f172a;
+}
+
+/* =========================
+   ITEM
+   ========================= */
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:10px 0;
+}
+
+.sub{
+  font-size:13px;
+  color:rgba(15,23,42,.65);
+}
+
+/* =========================
+   BOTONES (UNIFICADOS)
+   Base del sistema de botones
+   ========================= */
+.cbtn{
+  /* Tamaño base (ya “pequeño” para carrito) */
+  height:32px;
+  min-width:64px;
+  padding:0 12px;
+
+  border-radius:999px;
+  border:1px solid transparent;
+
+  font-size:13px;
+  font-weight:750;
+  line-height:1;
+
+  cursor:pointer;
+  user-select:none;
+  transition:transform .06s ease, filter .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.cbtn:hover{ filter:brightness(1.05); }
+.cbtn:active{ transform:scale(.97); }
+
+/* Variantes */
+.cbtn-blue{
+  background:rgba(59,130,246,.12);
+  border-color:rgba(59,130,246,.25);
+  color:#1d4ed8;
+}
+
+.cbtn-red{
+  background:rgba(239,68,68,.12);
+  border-color:rgba(239,68,68,.28);
+  color:#b91c1c;
+}
+
+.cbtn-green{
+  background:rgba(16,185,129,.14);
+  border-color:rgba(16,185,129,.30);
+  color:#047857;
+}
+
+/* =========================
+   ACCIONES (fila de botones -1 / Quitar)
+   ========================= */
+.actions{
+  display:flex;
+  gap:8px;
+}
+
+.actions .cbtn{
+  min-width:52px;
+  padding:0 10px;
+}
+
+/* =========================
+   TOTAL + FOOTER
+   ========================= */
+.divider{
+  height:1px;
+  background:rgba(17,24,39,.12);
+  margin:10px 0;
+}
+
+.total{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:16px;
+  font-weight:900;
+  margin-bottom:12px;
+}
+
+.footer-actions{
+  display:flex;
+  gap:10px;
+}
+
+.footer-actions .cbtn{
+  flex:1;
+  height:34px; /* un pelín más alto para CTA */
+}

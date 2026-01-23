@@ -1,7 +1,114 @@
-form {
-  max-width: 300px;
-  margin: 40px auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Página centrada */
+.auth-page {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 26px 14px;
+}
+
+/* Tarjeta */
+.auth-card {
+  width: min(520px, 92vw);
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(8px);
+}
+
+/* Cabecera */
+.auth-head h2 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.3px;
+  color: #0f172a;
+}
+
+.muted {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: rgba(15, 23, 42, 0.65);
+}
+
+/* Form */
+.auth-form {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field span {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.70);
+}
+
+.field input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(17, 24, 39, 0.14);
+  background: rgba(248, 250, 252, 0.95);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.06s ease;
+}
+
+.field input:focus {
+  border-color: rgba(59, 130, 246, 0.55);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+/* Botón principal */
+.btn-primary {
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: #0b1220;
+  background: linear-gradient(90deg, rgba(59,130,246,0.28), rgba(16,185,129,0.22));
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.14);
+  transition: transform 0.06s ease, filter 0.15s ease;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.02);
+}
+
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+/* Mensajes */
+.alerts {
+  margin-top: 14px;
+}
+
+.ok,
+.bad {
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  border: 1px solid transparent;
+}
+
+.ok {
+  background: rgba(16, 185, 129, 0.10);
+  border-color: rgba(16, 185, 129, 0.22);
+  color: #065f46;
+}
+
+.bad {
+  background: rgba(239, 68, 68, 0.10);
+  border-color: rgba(239, 68, 68, 0.22);
+  color: #7f1d1d;
 }
