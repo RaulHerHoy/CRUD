@@ -22,7 +22,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class MisCompras {
 
-  // Lista de compras del usuario
+  // Lista de compras (usuario normal: suyas | admin: todas)
   compras: any[] = [];
 
   // Estados de UI
@@ -31,6 +31,9 @@ export class MisCompras {
 
   // Guarda el id de la venta actualmente abierta (acordeón)
   ventaAbiertaId: string | null = null;
+
+  // Bandera para saber si el usuario es admin
+  esAdmin = false;
 
   constructor(
     private ventas: VentasService,
@@ -41,7 +44,9 @@ export class MisCompras {
     this.cargarHistorial();
   }
 
-  // Carga el historial de compras del usuario logueado
+  // ==========================================
+  // CARGA HISTORIAL (USER / ADMIN)
+  // ==========================================
   cargarHistorial(): void {
     const usuario = this.usuarios.obtenerUsuario();
 
@@ -51,15 +56,34 @@ export class MisCompras {
       return;
     }
 
+    // Determina si es admin
+    this.esAdmin = usuario.rol === 'admin';
+
     this.loading = true;
     this.errorMsg = '';
 
+    // ADMIN → todas las compras
+    if (this.esAdmin) {
+      this.ventas.obtenerTodas().subscribe({
+        next: (data) => {
+          this.compras = data || [];
+          this.loading = false;
+          this.ventaAbiertaId = null;
+        },
+        error: (err) => {
+          console.error('ERROR TODAS LAS COMPRAS 👉', err);
+          this.errorMsg = 'No se ha podido cargar el historial';
+          this.loading = false;
+        }
+      });
+      return;
+    }
+
+    // USUARIO NORMAL → solo sus compras
     this.ventas.obtenerMisCompras(usuario._id).subscribe({
       next: (data) => {
         this.compras = data || [];
         this.loading = false;
-
-        // Al cargar, cerramos el acordeón
         this.ventaAbiertaId = null;
       },
       error: (err) => {
@@ -70,19 +94,43 @@ export class MisCompras {
     });
   }
 
-  // Abre/cierra una venta del acordeón
+  // ==========================================
+  // ACORDEÓN
+  // ==========================================
   toggleVenta(id: string): void {
-    // Si está abierta, se cierra; si está cerrada, se abre
     this.ventaAbiertaId = (this.ventaAbiertaId === id) ? null : id;
   }
 
-  // Devuelve true si una venta está abierta
   estaAbierta(id: string): boolean {
     return this.ventaAbiertaId === id;
   }
 
-  // Total de unidades de una venta (sumatorio de cantidades)
+  // Total de unidades de una venta
   unidades(venta: any): number {
-    return (venta?.lineas || []).reduce((acc: number, l: any) => acc + Number(l.cantidad || 0), 0);
+    return (venta?.lineas || []).reduce(
+      (acc: number, l: any) => acc + Number(l.cantidad || 0),
+      0
+    );
+  }
+
+  // ==========================================
+  // SOLO ADMIN → BORRAR COMPRA
+  // ==========================================
+  borrarVenta(id: string): void {
+    if (!this.esAdmin) return;
+
+    const ok = confirm('¿Eliminar esta compra?');
+    if (!ok) return;
+
+    this.ventas.borrarVenta(id).subscribe({
+      next: () => {
+        alert('Compra eliminada ✅');
+        this.cargarHistorial(); // recarga listado
+      },
+      error: (err) => {
+        console.error('ERROR BORRANDO VENTA 👉', err);
+        alert('No se pudo eliminar la compra ❌');
+      }
+    });
   }
 }

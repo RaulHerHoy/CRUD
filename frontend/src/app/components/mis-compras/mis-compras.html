@@ -1,6 +1,8 @@
 <div class="mis-compras">
 
-  <h2>Mis compras</h2>
+  <!-- Título distinto según rol -->
+  <h2 *ngIf="!esAdmin">Mis compras</h2>
+  <h2 *ngIf="esAdmin">Todas las compras (ADMIN)</h2>
 
   <!-- Cargando -->
   <p *ngIf="loading">Cargando historial...</p>
@@ -10,7 +12,7 @@
 
   <!-- No hay compras -->
   <p *ngIf="!loading && !errorMsg && compras.length === 0">
-    Aún no has realizado ninguna compra.
+    No hay compras registradas.
   </p>
 
   <!-- Acordeón -->
@@ -19,27 +21,43 @@
     <!-- Cada compra -->
     <div class="accordion-item" *ngFor="let v of compras">
 
-      <!-- Cabecera: SOLO ID (lo que tú quieres) -->
+      <!-- Cabecera: SOLO ID -->
       <button
         type="button"
         class="accordion-header"
         (click)="toggleVenta(v._id)">
 
-        <!-- Muestra solo el ID -->
+        <!-- ID de la venta -->
         <span class="venta-id">{{ v._id }}</span>
 
-        <!-- Flechita para indicar abierto/cerrado -->
+        <!-- Botón borrar SOLO ADMIN -->
+        <button
+          *ngIf="esAdmin"
+          type="button"
+          class="btn-borrar"
+          (click)="$event.stopPropagation(); borrarVenta(v._id)">
+          🗑️
+        </button>
+
+        <!-- Flechita -->
         <span class="chevron" [class.open]="estaAbierta(v._id)">⌄</span>
       </button>
 
-      <!-- Contenido: detalles (solo si está abierta) -->
+      <!-- Contenido -->
       <div class="accordion-body" *ngIf="estaAbierta(v._id)">
 
         <div class="venta-resumen">
           <div><strong>Total:</strong> {{ v.total }} €</div>
           <div><strong>Unidades:</strong> {{ unidades(v) }}</div>
-          <div *ngIf="v.createdAt"><strong>Fecha:</strong> {{ v.createdAt | date:'short' }}</div>
+          <div *ngIf="v.createdAt">
+            <strong>Fecha:</strong> {{ v.createdAt | date:'short' }}
+          </div>
           <div><strong>Estado:</strong> {{ v.estado || 'CONFIRMADA' }}</div>
+
+          <!-- Si es admin, mostramos a qué usuario pertenece -->
+          <div *ngIf="esAdmin">
+            <strong>Usuario:</strong> {{ v.usuarioId || 'null' }}
+          </div>
         </div>
 
         <ul class="lineas">
