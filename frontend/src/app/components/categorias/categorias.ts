@@ -1,65 +1,71 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+// Importa Component y EventEmitter para emitir la categoría seleccionada
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
+
+// Importa CommonModule para *ngFor y *ngIf
+import { CommonModule } from "@angular/common";
+
+// Importa Subscription para limpiar suscripciones
+import { Subscription } from "rxjs";
+
+// Importa el servicio de vehículos (para pedir categorías y escuchar cambios)
+import { VehiculosService } from "../../services/vehiculos.service";
 
 @Component({
-  selector: 'app-categorias',
+  selector: "app-categorias",
   standalone: true,
-  imports:[CommonModule],
-  templateUrl: './categorias.html',
-  styleUrl: './categorias.css'
+  imports: [CommonModule],
+  templateUrl: "./categorias.html",
+  styleUrl: "./categorias.css",
 })
-export class Categorias {
+export class Categorias implements OnInit, OnDestroy {
 
-  categorias = [
-    'Berlina',
-    'SUV',
-    'Compacto',
-    'Familiar',
-    'Deportivo',
-    'Clásico'
-  ];
+  // Lista de categorías que se mostrará en botones
+  categorias: string[] = [];
 
-  // 👇 cambia a string | null para poder limpiar
+  // Emite la categoría elegida al padre (Layout)
   @Output() seleccionarCategoria = new EventEmitter<string | null>();
 
-  seleccionar(cat: string) {
+  // Para guardar la suscripción y poder cerrarla
+  private sub?: Subscription;
+
+  constructor(private vehiculosService: VehiculosService) {}
+
+  ngOnInit(): void {
+    // Carga categorías al iniciar
+    this.cargarCategorias();
+
+    // Se suscribe al “avisador” para recargar categorías cuando el admin cambie vehículos
+    this.sub = this.vehiculosService.categoriasChanged$.subscribe(() => {
+      this.cargarCategorias();
+    });
+  }
+
+  ngOnDestroy(): void {
+    // Limpia la suscripción para evitar fugas de memoria
+    this.sub?.unsubscribe();
+  }
+
+  // Pide las categorías al backend
+  cargarCategorias(): void {
+    this.vehiculosService.obtenerCategorias().subscribe({
+      next: (res) => {
+        // Guarda las categorías recibidas
+        this.categorias = res || [];
+      },
+      error: () => {
+        // Si falla, deja el array vacío
+        this.categorias = [];
+      },
+    });
+  }
+
+  // Emite la categoría seleccionada
+  seleccionar(cat: string): void {
     this.seleccionarCategoria.emit(cat);
   }
 
-  limpiarFiltro() {
+  // Quita filtro
+  limpiarFiltro(): void {
     this.seleccionarCategoria.emit(null);
   }
 }
-
-
-/*
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
-
-@Component({
-  selector: 'app-categorias',
-  standalone: true,
-  imports:[CommonModule],
-  templateUrl: './categorias.html',
-  styleUrl: './categorias.css'
-})
-export class Categorias {
-
-  // Lista de categorías de vehículos
-  categorias = [
-    'Berlina',
-    'SUV',
-    'Compacto',
-    'Familiar',
-    'Deportivo',
-    'Clásico'
-  ];
-
-  // Evento para comunicar al componente padre la categoría elegida
-  @Output() seleccionarCategoria = new EventEmitter<string>();
-
-  seleccionar(cat: string) {
-    this.seleccionarCategoria.emit(cat);
-  }
-}
-*/

@@ -1,4 +1,6 @@
 <div class="categorias">
+
+  <!-- Botones de categorías sacadas del backend -->
   <button
     *ngFor="let c of categorias"
     type="button"
@@ -7,10 +9,12 @@
     {{ c }}
   </button>
 
+  <!-- Botón para borrar filtros -->
   <button
     type="button"
     class="btn-clear"
     (click)="limpiarFiltro()">
     Borrar filtros
   </button>
+
 </div>
