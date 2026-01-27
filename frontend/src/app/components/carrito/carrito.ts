@@ -42,6 +42,7 @@ export class Carrito implements OnDestroy {
     });
   }
 
+
   // Quita una unidad de un producto
   quitarUno(id: string): void {
     this.carrito.removeOne(id);
