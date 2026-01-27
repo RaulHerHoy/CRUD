@@ -21,7 +21,7 @@ router.get('/usuario/:id', async (req, res) => {
     // Devuelve la lista de ventas
     return res.json(ventas);
   } catch (err) {
-    console.error('ERROR LISTANDO VENTAS 👉', err);
+    console.error('ERROR LISTANDO VENTAS', err);
     return res.status(500).json({ msg: 'Error obteniendo historial de compras' });
   }
 });
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 
     return res.json(ventas);
   } catch (err) {
-    console.error('ERROR LISTANDO TODAS LAS VENTAS 👉', err);
+    console.error('ERROR LISTANDO TODAS LAS VENTAS', err);
     return res.status(500).json({ msg: 'Error obteniendo todas las ventas' });
   }
 });
@@ -78,7 +78,7 @@ router.post('/', async (req, res) => {
     return res.status(201).json(venta);
 
   } catch (err) {
-    console.error('ERROR CREANDO VENTA 👉', err);
+    console.error('ERROR CREANDO VENTA', err);
     return res.status(500).json({ msg: 'Error creando la venta' });
   }
 });
@@ -92,7 +92,7 @@ router.delete('/:id', async (req, res) => {
     await Venta.findByIdAndDelete(req.params.id);
     return res.json({ msg: 'Venta eliminada correctamente' });
   } catch (err) {
-    console.error('ERROR ELIMINANDO VENTA 👉', err);
+    console.error('ERROR ELIMINANDO VENTA', err);
     return res.status(400).json({ msg: 'Error eliminando la venta' });
   }
 });
