@@ -1,0 +1,163 @@
+[{
+  "_id": {
+    "$oid": "6967cf176c12904214c40203"
+  },
+  "nombre": "Admin",
+  "email": "admin@tuweb.com",
+  "password": "Admin1234",
+  "rol": "admin",
+  "tipo": "normal"
+},
+{
+  "_id": {
+    "$oid": "6967d43bce4ac1b9e54794e5"
+  },
+  "nombre": "Raul",
+  "email": "raul@test.com",
+  "password": "1234",
+  "tipo": "vip",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-14T17:36:59.855Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-14T18:14:31.848Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696914bab400ab1d47d3848d"
+  },
+  "nombre": "Raúl",
+  "email": "riolu_96@hotmail.es",
+  "password": "rhh7",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-15T16:24:26.339Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-15T16:24:26.339Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69691509b400ab1d47d384aa"
+  },
+  "nombre": "jose",
+  "email": "wq23e12wq@gmail.es",
+  "password": "1234",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-15T16:25:45.512Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-15T16:25:45.512Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696aa1b400791b3e7ff8a9e1"
+  },
+  "nombre": "angel",
+  "email": "angel@kdsbakD.COM",
+  "password": "1234",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-16T20:38:12.423Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-16T20:38:12.423Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "696fcbad9c35b35c52cea91a"
+  },
+  "nombre": "dani",
+  "email": "prueba@gmail.com",
+  "password": "rhh",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-20T18:38:37.051Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-20T18:38:37.051Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6973dbff50c25565daf42740"
+  },
+  "nombre": "Israel",
+  "email": "1admin@tuweb.com",
+  "password": "123",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-23T20:37:19.774Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-23T20:37:19.774Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6979031174baf921abd7259b"
+  },
+  "nombre": "Sergiohh",
+  "email": "shh@sal.com",
+  "password": "qwer",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-27T18:25:21.871Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-27T18:25:21.871Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6979034274baf921abd725a1"
+  },
+  "nombre": "lorenzo",
+  "email": "loren@sal.com",
+  "password": "qwer",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-27T18:26:10.714Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-27T18:26:10.714Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697b7add8631108365aabb56"
+  },
+  "nombre": "Bosco",
+  "email": "boscco@salesianos.com",
+  "password": "qwer",
+  "tipo": "normal",
+  "rol": "buyer",
+  "createdAt": {
+    "$date": "2026-01-29T15:21:01.751Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-29T15:21:01.751Z"
+  },
+  "__v": 0
+}]

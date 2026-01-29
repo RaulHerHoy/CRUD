@@ -1,0 +1,315 @@
+[{
+  "_id": {
+    "$oid": "6972747e212263f4d378dbb9"
+  },
+  "usuarioId": {
+    "$oid": "696fcbad9c35b35c52cea91a"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b5"
+      },
+      "titulo": "Volkswagen Golf",
+      "precio": 14500,
+      "cantidad": 1
+    }
+  ],
+  "total": 14500,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-22T19:03:26.490Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-22T19:03:26.490Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69738f735c8ec38987f3e1c4"
+  },
+  "usuarioId": {
+    "$oid": "6967cf176c12904214c40203"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b7"
+      },
+      "titulo": "Skoda Octavia",
+      "precio": 13200,
+      "cantidad": 5
+    },
+    {
+      "vehiculoId": {
+        "$oid": "69738e55901dd7776c575a0b"
+      },
+      "titulo": "orbea liver",
+      "precio": 300,
+      "cantidad": 3
+    }
+  ],
+  "total": 66900,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-23T15:10:43.364Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-23T15:10:43.364Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6973dad850c25565daf426d4"
+  },
+  "usuarioId": {
+    "$oid": "6967cf176c12904214c40203"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b5"
+      },
+      "titulo": "Volkswagen Golf",
+      "precio": 14500,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "697285281abaa30a1a2b896f"
+      },
+      "titulo": "KTM duke390",
+      "precio": 3900,
+      "cantidad": 1
+    }
+  ],
+  "total": 18400,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-23T20:32:24.615Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-23T20:32:24.615Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6973db2f50c25565daf42727"
+  },
+  "usuarioId": {
+    "$oid": "696fcbad9c35b35c52cea91a"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b5"
+      },
+      "titulo": "Volkswagen Golf",
+      "precio": 14500,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b6"
+      },
+      "titulo": "Seat Ibiza",
+      "precio": 11900,
+      "cantidad": 1
+    }
+  ],
+  "total": 26400,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-23T20:33:51.881Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-23T20:33:51.881Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697b7a288631108365aabb47"
+  },
+  "usuarioId": {
+    "$oid": "6979034274baf921abd725a1"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b7"
+      },
+      "titulo": "Skoda Octavia",
+      "precio": 13200,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b6"
+      },
+      "titulo": "Seat Ibiza",
+      "precio": 11900,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b5"
+      },
+      "titulo": "Volkswagen Golf",
+      "precio": 14500,
+      "cantidad": 1
+    }
+  ],
+  "total": 39600,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-29T15:18:01.006Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-29T15:18:01.006Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697b7a848631108365aabb51"
+  },
+  "usuarioId": {
+    "$oid": "6979034274baf921abd725a1"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b7"
+      },
+      "titulo": "Skoda Octavia",
+      "precio": 13200,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "69738e55901dd7776c575a0b"
+      },
+      "titulo": "orbea liver",
+      "precio": 300,
+      "cantidad": 1
+    }
+  ],
+  "total": 13500,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-29T15:19:32.552Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-29T15:19:32.552Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697b7bad8631108365aabb65"
+  },
+  "usuarioId": {
+    "$oid": "697b7add8631108365aabb56"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "697b7b488631108365aabb60"
+      },
+      "titulo": "Salesianos Salesiano",
+      "precio": 13000,
+      "cantidad": 1
+    }
+  ],
+  "total": 13000,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-29T15:24:29.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-29T15:24:29.642Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697b7bca8631108365aabb67"
+  },
+  "usuarioId": {
+    "$oid": "697b7add8631108365aabb56"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "697b7b488631108365aabb60"
+      },
+      "titulo": "Salesianos Salesiano",
+      "precio": 13000,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8b8"
+      },
+      "titulo": "Audi A3",
+      "precio": 21900,
+      "cantidad": 2
+    }
+  ],
+  "total": 56800,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-29T15:24:58.193Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-29T15:24:58.193Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "697b7bd48631108365aabb69"
+  },
+  "usuarioId": {
+    "$oid": "697b7add8631108365aabb56"
+  },
+  "lineas": [
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8ba"
+      },
+      "titulo": "Mercedes Clase A",
+      "precio": 24800,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "695fd94390140078d71ad8bc"
+      },
+      "titulo": "Nissan Qashqai",
+      "precio": 21000,
+      "cantidad": 1
+    },
+    {
+      "vehiculoId": {
+        "$oid": "697285281abaa30a1a2b896f"
+      },
+      "titulo": "KTM duke390",
+      "precio": 3900,
+      "cantidad": 1
+    }
+  ],
+  "total": 49700,
+  "estado": "CONFIRMADA",
+  "createdAt": {
+    "$date": "2026-01-29T15:25:08.498Z"
+  },
+  "updatedAt": {
+    "$date": "2026-01-29T15:25:08.498Z"
+  },
+  "__v": 0
+}]
