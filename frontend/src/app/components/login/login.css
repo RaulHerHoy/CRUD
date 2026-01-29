@@ -1,75 +1,159 @@
+/* Contenedor principal de la página de autenticación */
 .auth-page{
+  /* Altura mínima del 55% de la altura de la ventana */
   min-height: 55vh;
+
+  /* Usa grid para centrar el contenido */
   display: grid;
   place-items: center;
+
+  /* Espaciado interno alrededor del contenido */
   padding: 20px;
 }
 
+/* Tarjeta que contiene el formulario de autenticación */
 .auth-card{
+  /* Ancho máximo de 420px, adaptándose a pantallas pequeñas */
   width: min(420px, 100%);
+
+  /* Fondo con degradado vertical usando variables CSS */
   background: linear-gradient(180deg, var(--surface), var(--surface-2));
+
+  /* Borde sutil para delimitar la tarjeta */
   border: 1px solid rgba(15,23,42,0.10);
+
+  /* Bordes redondeados definidos por variable */
   border-radius: var(--radius);
+
+  /* Sombra para dar efecto de elevación */
   box-shadow: var(--shadow);
+
+  /* Espaciado interno de la tarjeta */
   padding: 18px 18px 16px;
 }
 
+/* Estilos del título dentro de la tarjeta */
 .auth-card h2{
+  /* Elimina margen superior y define margen inferior */
   margin: 0 0 6px;
+
+  /* Tamaño de fuente del título */
   font-size: 20px;
+
+  /* Ajuste fino del espaciado entre letras */
   letter-spacing: -0.3px;
 }
 
+/* Texto secundario o informativo */
 .muted{
+  /* Margen inferior para separar del formulario */
   margin: 0 0 14px;
+
+  /* Color de texto atenuado */
   color: rgba(11,18,32,0.65);
+
+  /* Grosor de fuente intermedio */
   font-weight: 650;
+
+  /* Tamaño de fuente pequeño */
   font-size: 13px;
 }
 
+/* Formulario de autenticación */
 form{
+  /* Distribuye los campos en forma de columna */
   display: grid;
+
+  /* Espacio entre los elementos del formulario */
   gap: 12px;
 }
 
+/* Contenedor de cada etiqueta y su campo */
 label{
+  /* Usa grid para alinear texto y campo */
   display: grid;
+
+  /* Espacio entre el texto de la etiqueta y el input */
   gap: 6px;
 }
 
+/* Texto descriptivo de cada campo */
 label span{
+  /* Tamaño de fuente pequeño */
   font-size: 12px;
+
+  /* Texto en negrita para destacar */
   font-weight: 800;
+
+  /* Color oscuro atenuado */
   color: rgba(15,23,42,0.75);
 }
 
+/* Estilos generales para los campos de entrada */
 input{
+  /* El input ocupa todo el ancho disponible */
   width: 100%;
+
+  /* Bordes redondeados */
   border-radius: 14px;
+
+  /* Borde suave */
   border: 1px solid rgba(15,23,42,0.14);
+
+  /* Fondo ligeramente translúcido */
   background: rgba(255,255,255,0.92);
+
+  /* Espaciado interno del campo */
   padding: 10px 12px;
+
+  /* Elimina el borde por defecto al enfocar */
   outline: none;
+
+  /* Transiciones suaves en cambios visuales */
   transition: box-shadow .15s ease, border-color .15s ease, background .15s ease;
 }
 
+/* Estilos del input cuando recibe el foco */
 input:focus{
+  /* Cambia el color del borde al enfocar */
   border-color: rgba(37,99,235,0.35);
+
+  /* Añade un anillo de enfoque usando variable CSS */
   box-shadow: 0 0 0 4px var(--ring);
+
+  /* Fondo completamente blanco */
   background: #fff;
 }
 
+/* Botón principal del formulario */
 button.btn{
+  /* El botón ocupa todo el ancho del contenedor */
   width: 100%;
 }
 
+/* Mensaje de error */
 .error{
+  /* Elimina margen exterior */
   margin: 0;
+
+  /* Espaciado interno del mensaje */
   padding: 10px 12px;
+
+  /* Bordes redondeados */
   border-radius: 14px;
+
+  /* Borde rojo semitransparente */
   border: 1px solid rgba(239,68,68,0.25);
+
+  /* Fondo rojo claro para resaltar el error */
   background: rgba(239,68,68,0.10);
+
+  /* Color del texto del error */
   color: #991b1b;
+
+  /* Texto en negrita para destacar */
   font-weight: 750;
+
+  /* Tamaño de fuente reducido */
   font-size: 13px;
 }

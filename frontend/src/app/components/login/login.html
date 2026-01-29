@@ -1,24 +1,54 @@
+<!-- Contenedor principal de la página de autenticación -->
 <div class="auth-page">
+
+  <!-- Tarjeta que agrupa el contenido del formulario -->
   <div class="auth-card">
+
+    <!-- Título de la sección de inicio de sesión -->
     <h2>Iniciar sesión</h2>
+
+    <!-- Texto informativo para el usuario -->
     <p class="muted">Accede para ver el carrito y tu historial de compras.</p>
 
+    <!-- Formulario de inicio de sesión -->
+    <!-- Al enviarse, se ejecuta el método submit pasando el evento -->
     <form (submit)="submit($event)">
+
+      <!-- Campo para introducir el email -->
       <label>
+        <!-- Texto descriptivo del campo -->
         <span>Email</span>
+
+        <!-- Input de tipo email -->
+        <!-- Enlazado con la variable 'email' mediante ngModel -->
+        <!-- El atributo name es obligatorio para ngModel -->
+        <!-- required fuerza que el campo no pueda enviarse vacío -->
         <input type="email" [(ngModel)]="email" name="email" placeholder="tu@email.com" required>
       </label>
 
+      <!-- Campo para introducir la contraseña -->
       <label>
+        <!-- Texto descriptivo del campo -->
         <span>Contraseña</span>
+
+        <!-- Input de tipo password -->
+        <!-- Enlazado con la variable 'password' mediante ngModel -->
+        <!-- El atributo name es obligatorio para ngModel -->
+        <!-- required fuerza que el campo no pueda enviarse vacío -->
         <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required>
       </label>
 
+      <!-- Botón para enviar el formulario -->
+      <!-- Se deshabilita cuando loading es true -->
       <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <!-- Texto dinámico según el estado de carga -->
         {{ loading ? 'Entrando...' : 'Entrar' }}
       </button>
 
+      <!-- Mensaje de error -->
+      <!-- Solo se muestra si la variable errorMsg tiene contenido -->
       <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
     </form>
+
   </div>
 </div>

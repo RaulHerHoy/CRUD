@@ -1,3 +1,4 @@
+// Importa los componentes que se mostrarán en cada ruta
 import { Routes } from '@angular/router';
 import { Login } from './components/login/login';
 import { Registro } from './components/registro/registro';

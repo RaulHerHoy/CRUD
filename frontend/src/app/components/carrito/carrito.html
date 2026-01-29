@@ -1,27 +1,53 @@
+<!-- Contenedor principal del carrito -->
 <div class="cart">
+
+  <!-- Título del carrito.
+       Muestra el texto "Carrito" y el número total de productos,
+       obtenido llamando al método count() del componente -->
   <h3>Carrito ({{ count() }})</h3>
 
+  <!-- Itera sobre el array 'items' del componente.
+       Por cada elemento del carrito se renderiza un bloque .item -->
   <div class="item" *ngFor="let it of items">
+
+    <!-- Información principal del producto -->
     <div>
+      <!-- Marca y modelo del vehículo -->
       <strong>{{ it.marca }} {{ it.modelo }}</strong>
+
+      <!-- Subtexto con el precio unitario y la cantidad añadida -->
       <div class="sub">{{ it.precio }} € x {{ it.cantidad }}</div>
     </div>
 
+    <!-- Acciones disponibles para cada producto del carrito -->
     <div class="actions">
+      <!-- Botón para quitar una unidad del producto.
+           Llama al método quitarUno pasando el id del producto -->
       <button class="cbtn cbtn-blue" (click)="quitarUno(it._id)">-1</button>
+
+      <!-- Botón para eliminar completamente el producto del carrito.
+           Llama al método quitarTodo pasando el id del producto -->
       <button class="cbtn cbtn-red" (click)="quitarTodo(it._id)">Quitar</button>
     </div>
   </div>
 
+  <!-- Separador visual entre la lista de productos y el total -->
   <div class="divider"></div>
 
+  <!-- Sección que muestra el importe total del carrito -->
   <div class="total">
     <span>Total:</span>
+    <!-- Muestra el total calculado mediante el método total() -->
     <strong>{{ total() }} €</strong>
   </div>
 
+  <!-- Acciones generales del carrito -->
   <div class="footer-actions">
+    <!-- Vacía completamente el carrito -->
     <button class="cbtn cbtn-red" (click)="vaciar()">Vaciar carrito</button>
+
+    <!-- Inicia el proceso de compra -->
     <button class="cbtn cbtn-green" (click)="formalizarCompra()">Formalizar compra</button>
   </div>
+
 </div>

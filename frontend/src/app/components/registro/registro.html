@@ -1,13 +1,30 @@
+<!-- Contenedor principal de la página de autenticación -->
 <div class="auth-page">
+
+  <!-- Tarjeta que agrupa el contenido del registro -->
   <div class="auth-card">
+
+    <!-- Cabecera del formulario (título + descripción) -->
     <div class="auth-head">
+      <!-- Título de la pantalla -->
       <h2>Registro</h2>
+
+      <!-- Texto informativo -->
       <p class="muted">Crea tu cuenta para comprar y guardar tu historial.</p>
     </div>
 
+    <!-- Formulario de registro -->
+    <!-- ngSubmit lanza registrar() cuando el formulario se envía correctamente -->
     <form class="auth-form" (ngSubmit)="registrar()">
+
+      <!-- Campo: Nombre -->
       <label class="field">
+        <!-- Texto descriptivo del campo -->
         <span>Nombre</span>
+
+        <!-- Input de texto enlazado a la variable 'nombre' -->
+        <!-- name es necesario para usar ngModel -->
+        <!-- required impide enviar el formulario si está vacío -->
         <input
           type="text"
           [(ngModel)]="nombre"
@@ -17,8 +34,13 @@
         />
       </label>
 
+      <!-- Campo: Email -->
       <label class="field">
+        <!-- Texto descriptivo del campo -->
         <span>Email</span>
+
+        <!-- Input de tipo email enlazado a la variable 'email' -->
+        <!-- required valida que no esté vacío (y el tipo email valida formato básico) -->
         <input
           type="email"
           [(ngModel)]="email"
@@ -28,8 +50,13 @@
         />
       </label>
 
+      <!-- Campo: Contraseña -->
       <label class="field">
+        <!-- Texto descriptivo del campo -->
         <span>Contraseña</span>
+
+        <!-- Input de tipo password enlazado a la variable 'password' -->
+        <!-- required impide enviar el formulario si está vacío -->
         <input
           type="password"
           [(ngModel)]="password"
@@ -39,12 +66,21 @@
         />
       </label>
 
+      <!-- Botón para enviar el formulario -->
       <button type="submit" class="btn-primary">Registrarse</button>
     </form>
 
+    <!-- Zona para mostrar mensajes al usuario -->
     <div class="alerts">
+
+      <!-- Mensaje de éxito -->
+      <!-- Solo se muestra si la variable 'mensaje' tiene contenido -->
       <p class="ok" *ngIf="mensaje">{{ mensaje }}</p>
+
+      <!-- Mensaje de error -->
+      <!-- Solo se muestra si la variable 'error' tiene contenido -->
       <p class="bad" *ngIf="error">{{ error }}</p>
     </div>
+
   </div>
 </div>

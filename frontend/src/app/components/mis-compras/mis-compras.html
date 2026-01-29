@@ -1,50 +1,73 @@
+<!-- Contenedor principal de la sección de compras -->
 <div class="mis-compras">
 
+  <!-- Cabecera de la sección -->
   <div class="mc-header">
     <div class="mc-title">
+
+      <!-- Título visible solo si el usuario NO es administrador -->
       <h2 *ngIf="!esAdmin">Mis compras</h2>
+
+      <!-- Título visible solo si el usuario ES administrador -->
       <h2 *ngIf="esAdmin">Todas las compras</h2>
+
+      <!-- Subtítulo informativo -->
+      <!-- Se muestra solo cuando no está cargando y no hay error -->
       <p class="mc-subtitle" *ngIf="!loading && !errorMsg">
         {{ esAdmin ? 'Vista de administración: historial completo' : 'Tu historial de compras' }}
       </p>
     </div>
   </div>
 
-  <!-- Estado: loading -->
+  <!-- Estado de carga -->
+  <!-- Se muestra mientras se están cargando los datos -->
   <div class="mc-state" *ngIf="loading">
     <div class="spinner"></div>
     <span>Cargando historial...</span>
   </div>
 
-  <!-- Estado: error -->
+  <!-- Estado de error -->
+  <!-- Se muestra si no está cargando y existe un mensaje de error -->
   <div class="mc-alert mc-alert--error" *ngIf="!loading && errorMsg">
     {{ errorMsg }}
   </div>
 
-  <!-- Estado: vacío -->
+  <!-- Estado vacío -->
+  <!-- Se muestra si no hay error, no está cargando y no existen compras -->
   <div class="mc-alert" *ngIf="!loading && !errorMsg && compras.length === 0">
     No hay compras registradas.
   </div>
 
-  <!-- Acordeón -->
+  <!-- Acordeón principal -->
+  <!-- Solo se muestra si hay compras disponibles -->
   <div class="accordion" *ngIf="!loading && !errorMsg && compras.length > 0">
 
+    <!-- Itera sobre el array de compras -->
     <div class="accordion-item" *ngFor="let v of compras">
 
+      <!-- Cabecera del acordeón -->
+      <!-- Permite abrir y cerrar el detalle de cada compra -->
       <button
         type="button"
         class="accordion-header"
         [class.is-open]="estaAbierta(v._id)"
         (click)="toggleVenta(v._id)">
 
+        <!-- Parte izquierda: identificación de la compra -->
         <div class="venta-left">
           <span class="badge">ID</span>
           <span class="venta-id">{{ v._id }}</span>
         </div>
 
+        <!-- Parte derecha: total, acciones y estado visual -->
         <div class="venta-right">
+
+          <!-- Muestra el total de la compra si existe -->
           <span class="pill" *ngIf="v.total != null">{{ v.total }} €</span>
 
+          <!-- Botón de borrar compra -->
+          <!-- Solo visible para administradores -->
+          <!-- stopPropagation evita que se abra/cierre el acordeón al pulsar -->
           <button
             *ngIf="esAdmin"
             type="button"
@@ -54,45 +77,66 @@
             🗑️
           </button>
 
+          <!-- Icono visual de apertura/cierre del acordeón -->
           <span class="chevron" [class.open]="estaAbierta(v._id)">⌄</span>
         </div>
       </button>
 
+      <!-- Cuerpo del acordeón -->
+      <!-- Solo se muestra si esta compra está abierta -->
       <div class="accordion-body" *ngIf="estaAbierta(v._id)">
 
+        <!-- Resumen general de la compra -->
         <div class="venta-resumen">
+
+          <!-- Total de la compra -->
           <div class="resumen-item">
             <span class="k">Total</span>
             <span class="v">{{ v.total }} €</span>
           </div>
 
+          <!-- Número total de unidades compradas -->
           <div class="resumen-item">
             <span class="k">Unidades</span>
             <span class="v">{{ unidades(v) }}</span>
           </div>
 
+          <!-- Fecha de creación de la compra -->
+          <!-- Solo se muestra si existe createdAt -->
           <div class="resumen-item" *ngIf="v.createdAt">
             <span class="k">Fecha</span>
             <span class="v">{{ v.createdAt | date:'short' }}</span>
           </div>
 
+          <!-- Estado de la compra -->
+          <!-- Si no hay estado definido, se muestra CONFIRMADA -->
           <div class="resumen-item">
             <span class="k">Estado</span>
             <span class="v estado">{{ v.estado || 'CONFIRMADA' }}</span>
           </div>
 
+          <!-- Información del usuario -->
+          <!-- Visible solo para administradores -->
           <div class="resumen-item" *ngIf="esAdmin">
             <span class="k">Usuario</span>
             <span class="v mono">{{ v.usuarioId || 'null' }}</span>
           </div>
         </div>
 
+        <!-- Detalle de líneas de la compra -->
         <div class="lineas-wrap">
           <h4>Detalle</h4>
 
+          <!-- Lista de productos comprados -->
           <ul class="lineas">
+
+            <!-- Itera sobre las líneas de la compra -->
             <li *ngFor="let l of v.lineas">
+
+              <!-- Título o nombre del producto -->
               <div class="linea-titulo">{{ l.titulo }}</div>
+
+              <!-- Información de cantidad, precio y subtotal -->
               <div class="linea-meta">
                 <span>{{ l.cantidad }} x {{ l.precio }} €</span>
                 <span class="linea-subtotal">{{ (l.cantidad * l.precio) }} €</span>
