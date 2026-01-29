@@ -71,7 +71,7 @@ export class MisCompras {
           this.ventaAbiertaId = null;
         },
         error: (err) => {
-          console.error('ERROR TODAS LAS COMPRAS 👉', err);
+          console.error('ERROR TODAS LAS COMPRAS ', err);
           this.errorMsg = 'No se ha podido cargar el historial';
           this.loading = false;
         }
@@ -87,7 +87,7 @@ export class MisCompras {
         this.ventaAbiertaId = null;
       },
       error: (err) => {
-        console.error('ERROR MIS COMPRAS 👉', err);
+        console.error('ERROR MIS COMPRAS ', err);
         this.errorMsg = 'No se ha podido cargar el historial';
         this.loading = false;
       }
@@ -124,12 +124,12 @@ export class MisCompras {
 
     this.ventas.borrarVenta(id).subscribe({
       next: () => {
-        alert('Compra eliminada ✅');
+        alert('Compra eliminada ');
         this.cargarHistorial(); // recarga listado
       },
       error: (err) => {
-        console.error('ERROR BORRANDO VENTA 👉', err);
-        alert('No se pudo eliminar la compra ❌');
+        console.error('ERROR BORRANDO VENTA ', err);
+        alert('No se pudo eliminar la compra ');
       }
     });
   }

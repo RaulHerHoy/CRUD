@@ -16,7 +16,7 @@ export type CarritoItem = {
 })
 export class CarritoService {
 
-  // ✅ ahora el carrito se guarda por usuario: carrito_<userId>
+  //  ahora el carrito se guarda por usuario: carrito_<userId>
   private readonly STORAGE_PREFIX = 'carrito_';
   private storageKey = this.STORAGE_PREFIX + 'anon';
 
@@ -32,7 +32,7 @@ export class CarritoService {
   }
 
   /**
-   * ✅ Llamar al arrancar la app (recarga F5) y también tras login
+   *  Llamar al arrancar la app (recarga F5) y también tras login
    * Cambia la clave del localStorage y carga el carrito correspondiente.
    */
   setUser(userId: string | null): void {
@@ -41,7 +41,7 @@ export class CarritoService {
   }
 
   /**
-   * ✅ Llamar SOLO cuando el login es correcto.
+   *  Llamar SOLO cuando el login es correcto.
    * Deja el carrito vacío siempre que se hace login.
    */
   resetForLogin(): void {
