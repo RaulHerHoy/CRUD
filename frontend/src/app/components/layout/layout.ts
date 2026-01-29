@@ -20,25 +20,27 @@ import { Usuario } from '../../models/usuario';
 
 // Importa filter para filtrar eventos del router
 import { filter } from 'rxjs';
+import { Footer } from "../footer/footer";
 
 @Component({
   selector: 'app-layout',          // Selector del componente
   standalone: true,                // Componente standalone
   imports: [
-    CommonModule,                  // Para directivas como *ngIf
-    RouterLink,                    // Para routerLink
-    Categorias,                    // Componente de categorías
-    Vehiculos,                     // Componente de vehículos
-    Carrito,                       // Componente del carrito
-    RouterOutlet                   // Para mostrar login/registro u otras rutas
-  ],
+    CommonModule, // Para directivas como *ngIf
+    RouterLink, // Para routerLink
+    Categorias, // Componente de categorías
+    Vehiculos, // Componente de vehículos
+    Carrito, // Componente del carrito
+    RouterOutlet // Para mostrar login/registro u otras rutas
+    ,
+    Footer
+],
   templateUrl: './layout.html',    // HTML del layout
   styleUrl: './layout.css'         // CSS del layout
 })
 export class LayoutComponent {
 
-  // Año actual para el footer
-  currentYear = new Date().getFullYear();
+
 
   // Categoría seleccionada para filtrar vehículos
   categoriaSeleccionada: string | null = null;

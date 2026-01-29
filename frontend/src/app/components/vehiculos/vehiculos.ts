@@ -178,13 +178,13 @@ export class Vehiculos implements OnInit, OnChanges {
 
       this.vehiculoServ.actualizarVehiculo(this.editId, this.form).subscribe({
         next: () => {
-          alert('Vehículo actualizado ✅');
+          alert('Vehículo actualizado ');
           this.cargarVehiculos();
           this.nuevoVehiculo(); // limpia formulario y vuelve a modo creación
         },
         error: (err) => {
           console.error(err);
-          alert('Error al actualizar ❌');
+          alert('Error al actualizar ');
         }
       });
 
@@ -194,13 +194,13 @@ export class Vehiculos implements OnInit, OnChanges {
     // Si no estamos editando, creamos uno nuevo
     this.vehiculoServ.crearVehiculo(this.form).subscribe({
       next: () => {
-        alert('Vehículo creado ✅');
+        alert('Vehículo creado ');
         this.cargarVehiculos();
         this.nuevoVehiculo(); // limpia el formulario
       },
       error: (err) => {
         console.error(err);
-        alert('Error al crear ❌');
+        alert('Error al crear ');
       }
     });
   }
@@ -216,12 +216,12 @@ export class Vehiculos implements OnInit, OnChanges {
 
     this.vehiculoServ.eliminarVehiculo(id).subscribe({
       next: () => {
-        alert('Vehículo eliminado ✅');
+        alert('Vehículo eliminado ');
         this.cargarVehiculos();
       },
       error: (err) => {
         console.error(err);
-        alert('Error al eliminar ❌');
+        alert('Error al eliminar ');
       }
     });
   }

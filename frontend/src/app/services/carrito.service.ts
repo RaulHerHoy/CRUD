@@ -16,18 +16,44 @@ export type CarritoItem = {
 })
 export class CarritoService {
 
-  private readonly STORAGE_KEY = 'carrito';
+  //  ahora el carrito se guarda por usuario: carrito_<userId>
+  private readonly STORAGE_PREFIX = 'carrito_';
+  private storageKey = this.STORAGE_PREFIX + 'anon';
 
   private platformId = inject(PLATFORM_ID);
   private isBrowser = isPlatformBrowser(this.platformId);
 
-  private itemsSubject = new BehaviorSubject<CarritoItem[]>(this.load());
+  private itemsSubject = new BehaviorSubject<CarritoItem[]>([]);
   items$ = this.itemsSubject.asObservable();
+
+  constructor() {
+    // Carga inicial (anon)
+    this.loadAndEmit();
+  }
+
+  /**
+   *  Llamar al arrancar la app (recarga F5) y también tras login
+   * Cambia la clave del localStorage y carga el carrito correspondiente.
+   */
+  setUser(userId: string | null): void {
+    this.storageKey = this.STORAGE_PREFIX + (userId ?? 'anon');
+    this.loadAndEmit();
+  }
+
+  /**
+   *  Llamar SOLO cuando el login es correcto.
+   * Deja el carrito vacío siempre que se hace login.
+   */
+  resetForLogin(): void {
+    if (!this.isBrowser) return;
+    localStorage.removeItem(this.storageKey);
+    this.itemsSubject.next([]);
+  }
 
   private load(): CarritoItem[] {
     if (!this.isBrowser) return [];
 
-    const raw = localStorage.getItem(this.STORAGE_KEY);
+    const raw = localStorage.getItem(this.storageKey);
     if (!raw) return [];
 
     try {
@@ -37,9 +63,14 @@ export class CarritoService {
     }
   }
 
+  private loadAndEmit(): void {
+    const items = this.load();
+    this.itemsSubject.next(items);
+  }
+
   private save(items: CarritoItem[]): void {
     if (this.isBrowser) {
-      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(items));
+      localStorage.setItem(this.storageKey, JSON.stringify(items));
     }
     this.itemsSubject.next(items);
   }

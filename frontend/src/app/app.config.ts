@@ -2,7 +2,9 @@
 import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection
+  provideZoneChangeDetection,
+  APP_INITIALIZER,
+  inject
 } from '@angular/core';
 
 // Importa el proveedor del router
@@ -13,6 +15,10 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 
 // Importa las rutas de la aplicación
 import { routes } from './app.routes';
+
+// 🔹 Servicios propios
+import { UsuariosService } from './services/usuarios.service';
+import { CarritoService } from './services/carrito.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,8 +32,26 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
 
     // Configura HttpClient sin interceptores
-    provideHttpClient(
-      withFetch()
-    )
+    provideHttpClient(withFetch()),
+
+    // ✅ Inicializador de la app (recarga / F5)
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      useFactory: () => {
+        const usuarios = inject(UsuariosService);
+        const carrito = inject(CarritoService);
+
+        return () => {
+          // Si hay usuario guardado, cargamos SU carrito
+          const u = usuarios.obtenerUsuario();
+          const userId = u?._id ?? u?.id ?? u?.email ?? null;
+
+          // ⚠️ IMPORTANTE:
+          // aquí SOLO cargamos, NO vaciamos
+          carrito.setUser(userId);
+        };
+      }
+    }
   ]
 };

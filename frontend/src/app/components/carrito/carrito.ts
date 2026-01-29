@@ -42,6 +42,7 @@ export class Carrito implements OnDestroy {
     });
   }
 
+
   // Quita una unidad de un producto
   quitarUno(id: string): void {
     this.carrito.removeOne(id);
@@ -95,18 +96,18 @@ export class Carrito implements OnDestroy {
 
     // Envía la venta al backend con usuarioId + lineas
     this.ventas.crearVenta({
-      usuarioId: usuario._id, // ✅ se envía el id del usuario para asociar la venta
+      usuarioId: usuario._id, //  se envía el id del usuario para asociar la venta
       lineas
     }).subscribe({
       next: () => {
         // Si la venta se crea bien, avisamos y vaciamos carrito
-        alert('Compra realizada correctamente ✅');
+        alert('Compra realizada correctamente');
         this.carrito.clear();
       },
       error: (err) => {
         // Si hay error, mostramos uno genérico y dejamos el carrito como está
-        console.error('ERROR FORMALIZAR COMPRA 👉', err);
-        alert('Error al formalizar la compra ❌');
+        console.error('ERROR FORMALIZAR COMPRA ', err);
+        alert('Error al formalizar la compra ');
       }
     });
   }
