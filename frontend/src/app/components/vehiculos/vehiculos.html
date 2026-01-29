@@ -1,53 +1,85 @@
+<!-- Título principal de la sección -->
 <h2>Vehículos disponibles</h2>
 
 <!-- =========================
      PANEL ADMIN (solo admin)
      ========================= -->
+
+<!-- Bloque de administración.
+     Solo se muestra si esAdmin es true -->
 <div class="admin-panel" *ngIf="esAdmin">
+
+  <!-- Cabecera del panel admin -->
   <div class="admin-head">
     <div>
+      <!-- Título dinámico según si se está editando o creando -->
       <h3>{{ modoEdicion ? 'Editar vehículo' : 'Añadir nuevo vehículo' }}</h3>
+
+      <!-- Texto de ayuda.
+           El texto en negrita también cambia según el modo -->
       <p class="muted">
         Completa los datos y pulsa <strong>{{ modoEdicion ? 'Guardar cambios' : 'Crear vehículo' }}</strong>.
       </p>
     </div>
 
+    <!-- Botón "Nuevo".
+         Llama a nuevoVehiculo() para resetear el formulario y pasar a modo creación -->
     <button type="button" class="btn btn-ghost" (click)="nuevoVehiculo()">
       Nuevo
     </button>
   </div>
 
+  <!-- Formulario del panel admin -->
   <div class="admin-form">
+
+    <!-- Campo: Marca -->
     <div class="field">
       <label>Marca</label>
+      <!-- Enlace bidireccional con form.marca -->
       <input type="text" [(ngModel)]="form.marca" placeholder="Ej: Seat" />
     </div>
 
+    <!-- Campo: Modelo -->
     <div class="field">
       <label>Modelo</label>
+      <!-- Enlace bidireccional con form.modelo -->
       <input type="text" [(ngModel)]="form.modelo" placeholder="Ej: Ibiza" />
     </div>
 
+    <!-- Campo: Precio -->
     <div class="field">
       <label>Precio (€)</label>
+      <!-- Input numérico enlazado con form.precio.
+           min="0" evita valores negativos desde el navegador -->
       <input type="number" [(ngModel)]="form.precio" min="0" placeholder="11900" />
     </div>
 
+    <!-- Campo: Categoría -->
     <div class="field">
       <label>Categoría</label>
+      <!-- Enlace bidireccional con form.categoria -->
       <input type="text" [(ngModel)]="form.categoria" placeholder="Ej: Compacto / SUV / Motocicletas" />
     </div>
 
+    <!-- Campo: Imagen -->
+    <!-- field-wide normalmente indica que ocupa más ancho (por CSS) -->
     <div class="field field-wide">
       <label>URL de imagen</label>
+      <!-- Enlace bidireccional con form.imagen -->
       <input type="text" [(ngModel)]="form.imagen" placeholder="https://..." />
     </div>
 
+    <!-- Zona de acciones del formulario -->
     <div class="field actions">
+
+      <!-- Botón principal.
+           Ejecuta guardarVehiculo() para crear o actualizar según modoEdicion -->
       <button type="button" class="btn btn-primary" (click)="guardarVehiculo()">
         {{ modoEdicion ? 'Guardar cambios' : 'Crear vehículo' }}
       </button>
 
+      <!-- Chip informativo.
+           Solo aparece si se está en modo edición y existe editId -->
       <span class="chip" *ngIf="modoEdicion && editId">
         Editando: {{ editId }}
       </span>
@@ -58,27 +90,46 @@
 <!-- =========================
      GRID VEHÍCULOS
      ========================= -->
+
+<!-- Contenedor del listado de vehículos en formato rejilla -->
 <div class="grid">
+
+  <!-- Recorre el array vehiculosFiltrados y crea una tarjeta por cada vehículo -->
   <div class="card" *ngFor="let v of vehiculosFiltrados">
 
+    <!-- Imagen del vehículo.
+         [src] enlaza con v.imagen -->
     <img [src]="v.imagen" alt="Vehículo" />
 
+    <!-- Información del vehículo -->
     <div class="info">
+      <!-- Marca y modelo -->
       <h3>{{ v.marca }} {{ v.modelo }}</h3>
+
+      <!-- Precio -->
       <p class="precio">{{ v.precio }} €</p>
+
+      <!-- Categoría -->
       <p class="categoria">{{ v.categoria }}</p>
     </div>
 
-    <!-- Añadir al carrito (moderno) -->
+    <!-- Botón para añadir el vehículo al carrito -->
+    <!-- Llama a addToCart pasando el objeto vehículo -->
     <button class="btn btn-cart" type="button" (click)="addToCart(v)">
       Añadir al carrito
     </button>
 
-    <!-- Acciones admin -->
+    <!-- Acciones de administrador -->
+    <!-- Solo se muestran si esAdmin es true -->
     <div class="admin-actions" *ngIf="esAdmin">
+
+      <!-- Botón para entrar en modo edición con este vehículo -->
       <button class="btn btn-edit" type="button" (click)="editarVehiculo(v)">
         Editar
       </button>
+
+      <!-- Botón para eliminar el vehículo -->
+      <!-- v._id! indica que se asume que _id no es null/undefined -->
       <button class="btn btn-del" type="button" (click)="eliminarVehiculo(v._id!)">
         Eliminar
       </button>
