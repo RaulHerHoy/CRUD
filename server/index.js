@@ -54,8 +54,7 @@ app.use("/api/admin", require("./routes/admin.routes"));
 // Rutas de vehículos (listar, crear, editar, eliminar)
 app.use('/api/vehiculos', require('./routes/vehiculos.routes'));
 
-// Rutas del carrito de la compra
-app.use('/api/carrito', require('./routes/carrito.routes'));
+
 
 // Rutas de ventas (historial, creación, borrado)
 app.use('/api/ventas', ventasRoutes);
