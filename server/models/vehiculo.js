@@ -10,16 +10,6 @@ const VehiculoSchema = new Schema({
   imagen: String,
   descripcion: String
 });
-// GET /api/vehiculos/categorias
-/*
-router.get('/categorias', async (req, res) => {
-  try {
-    // Obtenemos categorías únicas
-    const categorias = await Vehiculo.distinct('categoria');
-    res.json(categorias);
-  } catch (err) {
-    res.status(500).json({ msg: 'Error obteniendo categorías' });
-  }
-});*/
+
 
 module.exports = mongoose.model("Vehiculo", VehiculoSchema);
