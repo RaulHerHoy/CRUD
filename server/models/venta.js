@@ -1,4 +1,3 @@
-// Importa mongoose para definir esquemas y modelos
 const mongoose = require('mongoose');
 
 // ================================
@@ -13,20 +12,14 @@ const lineaSchema = new mongoose.Schema(
       ref: 'Vehiculo',
       required: true
     },
-
-    // Texto descriptivo (marca + modelo)
     titulo: {
       type: String,
       required: true
     },
-
-    // Precio unitario en el momento de la compra
     precio: {
       type: Number,
       required: true
     },
-
-    // Cantidad comprada
     cantidad: {
       type: Number,
       required: true,
@@ -43,7 +36,6 @@ const lineaSchema = new mongoose.Schema(
 // ================================
 const ventaSchema = new mongoose.Schema(
   {
-    // Usuario que realiza la compra
     // Se guarda el _id del usuario logueado
     usuarioId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -74,5 +66,4 @@ const ventaSchema = new mongoose.Schema(
   }
 );
 
-// Exporta el modelo Venta
 module.exports = mongoose.model('Venta', ventaSchema);

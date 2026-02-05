@@ -1,42 +1,29 @@
 // Importa Component, Input, OnChanges y OnInit para manejar el ciclo de vida del componente
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-
 // Importa CommonModule para usar directivas como *ngIf y *ngFor en el HTML
 import { CommonModule } from '@angular/common';
-
-// Importa el servicio que obtiene y modifica vehículos en el backend
 import { VehiculosService } from '../../services/vehiculos.service';
-
-// Importa el modelo Vehiculo
 import { Vehiculo } from '../../models/vehiculo';
-
-// Importa el servicio del carrito (localStorage)
 import { CarritoService } from '../../services/carrito.service';
-
-// Importa UsuariosService para saber quién está logueado y su rol
 import { UsuariosService } from '../../services/usuarios.service';
-
 import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-vehiculos',          // Selector del componente
-  standalone: true,                   // Componente standalone
-  imports: [CommonModule, FormsModule],            // Módulos necesarios para el template
-  templateUrl: './vehiculos.html',    // HTML del componente
-  styleUrl: './vehiculos.css'         // CSS del componente
+  selector: 'app-vehiculos',          
+  standalone: true,                 
+  imports: [CommonModule, FormsModule],          
+  templateUrl: './vehiculos.html',    
+  styleUrl: './vehiculos.css'        
 })
 export class Vehiculos implements OnInit, OnChanges {
 
   // Lista completa de vehículos traídos del backend
   vehiculos: Vehiculo[] = [];
-
   // Lista filtrada según la categoría seleccionada
   vehiculosFiltrados: Vehiculo[] = [];
-
   // Categoría recibida desde el Layout (Input)
   @Input() categoriaSeleccionada: string | null = null;
-
   // Bandera para saber si el usuario logueado es admin
   esAdmin = false;
 
@@ -51,30 +38,21 @@ export class Vehiculos implements OnInit, OnChanges {
   // Guarda el id del vehículo que se está editando
   editId: string | null = null;
 
-  // Datos del formulario (para crear o editar)
-  form: any = {
-    marca: '',
-    modelo: '',
-    precio: 0,
-    categoria: '',
-    imagen: ''
-  };
+  // Datos del formulario usando la clase Vehiculo
+  form: Vehiculo = new Vehiculo();
 
   constructor(
-    private vehiculoServ: VehiculosService,  // Servicio de vehículos (backend)
-    private carrito: CarritoService,         // Servicio del carrito
-    private usuarios: UsuariosService         // Servicio de sesión (LocalStorage)
+    private vehiculoServ: VehiculosService,  
+    private carrito: CarritoService,        
+    private usuarios: UsuariosService       
   ) {}
 
   // Se ejecuta al iniciar el componente
   ngOnInit() {
-
     // Obtiene el usuario logueado desde LocalStorage
     const usuario = this.usuarios.obtenerUsuario();
-
     // Activa modo admin si el rol del usuario es "admin"
     this.esAdmin = usuario?.rol === 'admin';
-
     // Carga los vehículos desde el backend
     this.cargarVehiculos();
   }
@@ -90,10 +68,8 @@ export class Vehiculos implements OnInit, OnChanges {
       next: (res) => {
         // Guarda la lista completa
         this.vehiculos = res;
-
         // Inicialmente, la lista filtrada es toda la lista
         this.vehiculosFiltrados = res;
-
         // Aplica filtro por si ya había una categoría seleccionada
         this.aplicarFiltro();
       },
@@ -139,8 +115,8 @@ export class Vehiculos implements OnInit, OnChanges {
     this.modoEdicion = false;
     this.editId = null;
 
-    // Limpia el formulario
-    this.form = { marca: '', modelo: '', precio: 0, categoria: '', imagen: '' };
+    // Limpia el formulario creando un nuevo objeto Vehiculo
+    this.form = new Vehiculo();
   }
 
   // Carga en el formulario los datos de un vehículo para editarlo
@@ -153,13 +129,12 @@ export class Vehiculos implements OnInit, OnChanges {
     this.editId = v._id as string;
 
     // Copia datos del vehículo al formulario
-    this.form = {
-      marca: v.marca,
-      modelo: v.modelo,
-      precio: v.precio,
-      categoria: v.categoria,
-      imagen: v.imagen || ''
-    };
+    this.form = new Vehiculo();
+    this.form.marca = v.marca;
+    this.form.modelo = v.modelo;
+    this.form.precio = v.precio;
+    this.form.categoria = v.categoria;
+    this.form.imagen = v.imagen || '';
   }
 
   // Guarda (crea o actualiza) según el modo actual

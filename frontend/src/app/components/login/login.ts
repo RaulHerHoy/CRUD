@@ -1,34 +1,26 @@
-// Importa Component para definir el componente
 import { Component } from '@angular/core';
-
 // Importa CommonModule y FormsModule para usar *ngIf, ngModel, etc.
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-// Importa Router para navegar (redirigir)
 import { Router } from '@angular/router';
-
-// Importa el servicio único de usuarios/sesión
 import { UsuariosService } from '../../services/usuarios.service';
 
 @Component({
-  selector: 'app-login',               // Selector del componente
-  standalone: true,                    // Componente standalone
-  imports: [CommonModule, FormsModule],// Módulos necesarios
-  templateUrl: './login.html',         // Template HTML
-  styleUrl: './login.css'              // Estilos CSS
+  selector: 'app-login',              
+  standalone: true,                   
+  imports: [CommonModule, FormsModule],
+  templateUrl: './login.html',         
+  styleUrl: './login.css'              
 })
 export class Login {
 
   // Campos del formulario
-  email = '';                          // Email introducido por el usuario
-  password = '';                       // Contraseña introducida por el usuario
-
+  email = '';                          
+  password = '';                       
   // Variables para controlar la UI
   loading = false;                     // Indica si está cargando (para desactivar botón)
   errorMsg = '';                       // Mensaje de error a mostrar
 
-  // Inyecta el servicio de usuarios y el router
   constructor(
     private usuarios: UsuariosService, // Servicio de login + LocalStorage
     private router: Router             // Para navegar a otras rutas

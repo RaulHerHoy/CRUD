@@ -1,62 +1,44 @@
-// Importa Component para definir el componente
 import { Component } from '@angular/core';
-
-// Importa componentes que se muestran en el layout
-import { Categorias } from '../categorias/categorias';
+import { Header } from '../header/header';
+import { Latizq } from '../latizq/latizq';
+import { Latder } from '../latder/latder';
 import { Vehiculos } from '../vehiculos/vehiculos';
-import { Carrito } from '../carrito/carrito';
-
-// Importa RouterLink y RouterOutlet para navegación y render de rutas
-import { RouterLink, RouterOutlet, Router, NavigationEnd } from '@angular/router';
-
-// Importa CommonModule para usar *ngIf, *ngFor, etc.
+import { Footer } from '../footer/footer';
+import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+// Importa CommonModule para usar *ngIf
 import { CommonModule } from '@angular/common';
-
-// Importa el servicio de sesión (LocalStorage)
 import { UsuariosService } from '../../services/usuarios.service';
-
-// Importa el tipo Usuario del modelo
 import { Usuario } from '../../models/usuario';
-
-// Importa filter para filtrar eventos del router
 import { filter } from 'rxjs';
-import { Footer } from "../footer/footer";
 
 @Component({
-  selector: 'app-layout',          // Selector del componente
-  standalone: true,                // Componente standalone
+  selector: 'app-layout',
+  standalone: true,
   imports: [
-    CommonModule, // Para directivas como *ngIf
-    RouterLink, // Para routerLink
-    Categorias, // Componente de categorías
-    Vehiculos, // Componente de vehículos
-    Carrito, // Componente del carrito
-    RouterOutlet // Para mostrar login/registro u otras rutas
-    ,
-    Footer
-],
-  templateUrl: './layout.html',    // HTML del layout
-  styleUrl: './layout.css'         // CSS del layout
+    CommonModule,
+    Header,      
+    Latizq,      
+    Latder,      
+    Vehiculos,   
+    Footer,      
+    RouterOutlet
+  ],
+  templateUrl: './layout.html',
+  styleUrl: './layout.css'
 })
 export class LayoutComponent {
 
-
-
   // Categoría seleccionada para filtrar vehículos
   categoriaSeleccionada: string | null = null;
-
   // Usuario logueado (si existe)
   usuario: Usuario | null = null;
-
   // Bandera simple para saber si hay sesión iniciada
   logeado = false;
-
   // Bandera para saber si estamos en la ruta principal (home)
   // Si esHome es true → mostramos vehículos
   // Si esHome es false → mostramos router-outlet (login/registro)
   esHome = true;
 
-  // Inyecta UsuariosService para sesión y Router para detectar ruta y navegar
   constructor(
     private usuarios: UsuariosService,
     private router: Router
@@ -86,17 +68,12 @@ export class LayoutComponent {
     this.esHome = this.router.url === '/' || this.router.url.startsWith('/?');
   }
 
-  // Recibe la categoría seleccionada desde el componente Categorias
+  // Recibe la categoría seleccionada desde latizq (que la recibe de categorias)
   filtrarporcategoria(cat: string | null) {
     this.categoriaSeleccionada = cat;
   }
 
-  // Limpia filtros (muestra todos los vehículos)
-  borrarFiltros() {
-    this.categoriaSeleccionada = null;
-  }
-
-  // Cierra sesión
+  // Cierra sesión (recibido desde el header)
   logout() {
     // Borra usuario + bandera del LocalStorage
     this.usuarios.logout();

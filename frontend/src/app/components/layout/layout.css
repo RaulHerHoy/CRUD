@@ -9,73 +9,6 @@
 }
 
 /* =========================
-   CABECERA (con color)
-   ========================= */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 22px;
-  background: linear-gradient(135deg, var(--header), #111b3a);
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-.header h1 {
-  margin: 0;
-  font-size: 20px;
-  letter-spacing: -0.3px;
-}
-
-.header nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Links nav */
-.header nav a {
-  color: rgba(255,255,255,0.88);
-  text-decoration: none;
-  font-weight: 650;
-  padding: 8px 10px;
-  border-radius: 12px;
-  transition: background .15s ease, color .15s ease;
-}
-
-.header nav a:hover {
-  background: rgba(255,255,255,0.10);
-  color: #fff;
-}
-
-/* Usuario */
-.user {
-  margin-left: 10px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.95);
-}
-
-/* Logout */
-.logout-btn {
-  margin-left: 8px;
-  border: 1px solid rgba(239,68,68,0.35);
-  background: rgba(239,68,68,0.12);
-  color: #fecaca;
-  padding: 8px 12px;
-  border-radius: 14px;
-  cursor: pointer;
-  font-weight: 750;
-  transition: background .15s ease, border-color .15s ease, transform .06s ease;
-}
-
-.logout-btn:hover {
-  background: rgba(239,68,68,0.18);
-  border-color: rgba(239,68,68,0.45);
-}
-
-.logout-btn:active { transform: scale(0.99); }
-
-/* =========================
    CONTENIDO PRINCIPAL
    ========================= */
 .content {
@@ -84,15 +17,6 @@
   grid-template-columns: 240px 1fr 290px;
   gap: 16px;
   padding: 16px;
-}
-
-/* ASIDES con color suave */
-.left, .right {
-  background: linear-gradient(180deg, var(--aside), #dfe8f5);
-  border: 1px solid var(--aside-border);
-  border-radius: var(--radius);
-  padding: 12px;
-  box-shadow: var(--shadow-soft);
 }
 
 /* Centro */
@@ -105,32 +29,19 @@
   min-height: 300px;
 }
 
-/* Aviso carrito */
-.carrito-aviso {
-  padding: 12px;
-  border-radius: 14px;
-  font-size: 13px;
-  background: var(--warning-soft);
-  border: 1px solid rgba(245,158,11,0.28);
-  color: #92400e;
-  font-weight: 650;
-}
-
-
-
 /* RESPONSIVE */
 @media (max-width: 1100px) {
   .content {
     grid-template-columns: 240px 1fr;
   }
-  .right { display: none; }
+  app-latder { display: none; }
 }
 
 @media (max-width: 900px) {
   .content {
     grid-template-columns: 1fr;
   }
-  .left { order: 2; }
+  app-latizq { order: 2; }
   .center { order: 1; }
-  .right { order: 3; display: block; }
+  app-latder { order: 3; display: block; }
 }

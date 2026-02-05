@@ -1,32 +1,17 @@
-// Importa el decorador Component para definir un componente Angular
 import { Component } from '@angular/core';
-
 // Importa CommonModule para usar directivas comunes como *ngIf o *ngFor
 import { CommonModule } from '@angular/common';
-
 // Importa FormsModule para poder usar ngModel en el formulario
 import { FormsModule } from '@angular/forms';
-
-// Importa Router para poder navegar entre rutas de la aplicación
 import { Router } from '@angular/router';
-
-// Importa HttpClient para realizar peticiones HTTP al backend
-import { HttpClient } from '@angular/common/http';
+import { UsuariosService } from '../../services/usuarios.service';
+import { Usuario } from '../../models/usuario';
 
 @Component({
-  // Selector del componente, usado en el HTML para renderizarlo
   selector: 'app-registro',
-
-  // Indica que el componente es standalone
   standalone: true,
-
-  // Módulos que necesita este componente
   imports: [CommonModule, FormsModule],
-
-  // Ruta del archivo HTML asociado al componente
   templateUrl: './registro.html',
-
-  // Ruta del archivo CSS asociado al componente
   styleUrl: './registro.css'
 })
 export class Registro {
@@ -40,12 +25,8 @@ export class Registro {
   mensaje = '';
   error = '';
 
-  // Constructor con inyección de dependencias
   constructor(
-    // Cliente HTTP para comunicarse con la API
-    private http: HttpClient,
-
-    // Router para redirigir a otras vistas
+    private usuarios: UsuariosService,
     private router: Router
   ) {}
 
@@ -56,13 +37,14 @@ export class Registro {
     this.mensaje = '';
     this.error = '';
 
-    // Realiza una petición POST al backend para registrar un usuario
-    this.http.post<any>('http://localhost:5000/api/auth/registro', {
-      // Datos enviados en el cuerpo de la petición
-      nombre: this.nombre,
-      email: this.email,
-      password: this.password
-    }).subscribe({
+    // Crea un nuevo usuario usando la clase Usuario
+    const nuevoUsuario = new Usuario();
+    nuevoUsuario.nombre = this.nombre;
+    nuevoUsuario.email = this.email;
+    nuevoUsuario.password = this.password;
+
+    // Usa el servicio para registrar el usuario
+    this.usuarios.registrar(nuevoUsuario).subscribe({
 
       // Se ejecuta si la petición es correcta
       next: () => {

@@ -1,13 +1,6 @@
-// Importa Injectable para poder inyectar este servicio en la app
 import { Injectable } from "@angular/core";
-
-// Importa HttpClient para hacer peticiones al backend
 import { HttpClient } from "@angular/common/http";
-
-// Importa Observable para tipar respuestas
 import { Observable, Subject } from "rxjs";
-
-// Importa el modelo Vehiculo
 import { Vehiculo } from "../models/vehiculo";
 
 @Injectable({
@@ -32,25 +25,18 @@ export class VehiculosService {
   }
 
   // Crea un vehículo nuevo
-  crearVehiculo(dato: any) {
-    return this.http.post(this.URL, dato);
+  crearVehiculo(vehiculo: Vehiculo) {
+    return this.http.post(this.URL, vehiculo);
   }
 
   // Borra un vehículo por id
-  borrarVehiculo(id: string) {
+  eliminarVehiculo(id: string) {
     return this.http.delete(this.URL + id);
   }
-
-  // (Si en tu app usas eliminarVehiculo en vez de borrarVehiculo, NO lo borres)
-  // Si NO existe, puedes añadir este alias para que no te rompa nada:
-  eliminarVehiculo(id: string) {
-    return this.borrarVehiculo(id);
-  }
-
-  // (Si ya tienes actualizarVehiculo en tu proyecto, déjalo tal cual)
-  // Si NO existe y lo estás llamando en Vehiculos.ts, añádelo:
-  actualizarVehiculo(id: string, dato: any) {
-    return this.http.put(this.URL + id, dato);
+  
+  // Actualizar vehiculo datos e id
+  actualizarVehiculo(id: string, vehiculo: Vehiculo) {
+    return this.http.put(this.URL + id, vehiculo);
   }
 
   // Obtener categorías únicas desde el backend

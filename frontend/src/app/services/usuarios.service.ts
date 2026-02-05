@@ -1,17 +1,7 @@
-// Importa Injectable para poder inyectar este servicio en cualquier componente
-// Importa Inject y PLATFORM_ID para poder detectar la plataforma (navegador o servidor)
 import { Injectable, Inject, PLATFORM_ID } from "@angular/core";
-
-// Importa el CarritoService (misma carpeta services)
 import { CarritoService } from "./carrito.service";
-
-// Importa isPlatformBrowser para saber si el código se ejecuta en navegador (no SSR/Node)
 import { isPlatformBrowser } from "@angular/common";
-
-// Importa HttpClient para hacer peticiones al backend
 import { HttpClient } from "@angular/common/http";
-
-// Importa el tipo Usuario (modelo) que usas en tu proyecto
 import { Usuario } from "../models/usuario";
 
 @Injectable({
@@ -68,7 +58,7 @@ export class UsuariosService {
 
   // Se llama SOLO cuando el login es correcto
   // Guarda el usuario en localStorage y marca la sesión como iniciada
-  guardarUsuario(usuario: any) {
+  guardarUsuario(usuario: Usuario) {
     // Si no estamos en navegador, no se guarda nada (evita errores por localStorage)
     if (!this.esNavegador()) return;
 
@@ -79,8 +69,7 @@ export class UsuariosService {
     localStorage.setItem(this.LOGGED_KEY, "true");
 
     // Obtiene un identificador de usuario para asociar el carrito a ese usuario
-    // Intenta _id, si no existe id, si no existe email, si no null
-    const userId = usuario?._id ?? usuario?.id ?? usuario?.email ?? null;
+    const userId = usuario?._id ?? usuario?.email ?? null;
 
     // Cambia la clave interna del carrito al usuario actual
     this.carrito.setUser(userId);
@@ -91,7 +80,7 @@ export class UsuariosService {
 
   // Recupera el usuario guardado en localStorage
   // Devuelve el objeto parseado o null si no existe
-  obtenerUsuario(): any | null {
+  obtenerUsuario(): Usuario | null {
     // Si no estamos en navegador, no se puede leer localStorage
     if (!this.esNavegador()) return null;
 
@@ -102,7 +91,7 @@ export class UsuariosService {
     if (!raw) return null;
 
     // Convierte JSON a objeto y lo devuelve
-    return JSON.parse(raw);
+    return JSON.parse(raw) as Usuario;
   }
 
   // Indica si el usuario está logueado según el flag guardado en localStorage

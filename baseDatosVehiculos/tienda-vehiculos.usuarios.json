@@ -3,8 +3,8 @@
     "$oid": "6967cf176c12904214c40203"
   },
   "nombre": "Admin",
-  "email": "admin@tuweb.com",
-  "password": "Admin1234",
+  "email": "admin",
+  "password": "admin",
   "rol": "admin",
   "tipo": "normal"
 },
@@ -13,8 +13,8 @@
     "$oid": "6967d43bce4ac1b9e54794e5"
   },
   "nombre": "Raul",
-  "email": "raul@test.com",
-  "password": "1234",
+  "email": "raul",
+  "password": "raul",
   "tipo": "vip",
   "rol": "buyer",
   "createdAt": {
@@ -47,8 +47,8 @@
     "$oid": "69691509b400ab1d47d384aa"
   },
   "nombre": "jose",
-  "email": "wq23e12wq@gmail.es",
-  "password": "1234",
+  "email": "jose",
+  "password": "jose",
   "tipo": "normal",
   "rol": "buyer",
   "createdAt": {
@@ -65,7 +65,7 @@
   },
   "nombre": "angel",
   "email": "angel@kdsbakD.COM",
-  "password": "1234",
+  "password": "angel",
   "tipo": "normal",
   "rol": "buyer",
   "createdAt": {
@@ -81,8 +81,8 @@
     "$oid": "696fcbad9c35b35c52cea91a"
   },
   "nombre": "dani",
-  "email": "prueba@gmail.com",
-  "password": "rhh",
+  "email": "prueba",
+  "password": "prueba",
   "tipo": "normal",
   "rol": "buyer",
   "createdAt": {
@@ -98,8 +98,8 @@
     "$oid": "6973dbff50c25565daf42740"
   },
   "nombre": "Israel",
-  "email": "1admin@tuweb.com",
-  "password": "123",
+  "email": "isra",
+  "password": "isra",
   "tipo": "normal",
   "rol": "buyer",
   "createdAt": {
@@ -115,8 +115,8 @@
     "$oid": "6979031174baf921abd7259b"
   },
   "nombre": "Sergiohh",
-  "email": "shh@sal.com",
-  "password": "qwer",
+  "email": "shh",
+  "password": "shh",
   "tipo": "normal",
   "rol": "buyer",
   "createdAt": {
@@ -149,8 +149,8 @@
     "$oid": "697b7add8631108365aabb56"
   },
   "nombre": "Bosco",
-  "email": "boscco@salesianos.com",
-  "password": "qwer",
+  "email": "bosco",
+  "password": "bosco",
   "tipo": "normal",
   "rol": "buyer",
   "createdAt": {

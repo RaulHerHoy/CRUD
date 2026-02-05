@@ -27,15 +27,6 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 /**
- * Aquí podrían definirse endpoints de API REST en Express.
- * El bloque está comentado porque es un ejemplo.
- * Si se definiesen rutas tipo /api/..., se ejecutarían antes del SSR.
- *
- * Ejemplo (comentado):
- * app.get('/api/{*splat}', (req, res) => { ... });
- */
-
-/**
  * Sirve archivos estáticos desde la carpeta /browser (build del cliente).
  * Esto cubre assets como JS, CSS, imágenes, etc.
  */

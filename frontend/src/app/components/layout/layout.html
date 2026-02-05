@@ -1,50 +1,17 @@
 <div class="layout">
 
-  <!-- CABECERA -->
-  <header class="header">
-
-    <!-- Título -->
-    <h1>Tienda de Vehículos</h1>
-
-    <!-- Navegación -->
-    <nav>
-      <!-- Enlace a inicio -->
-      <a routerLink="/">Inicio</a>
-
-      <!-- Si NO está logueado, muestra login y registro -->
-      <ng-container *ngIf="!logeado">
-        <a routerLink="/login">Iniciar sesión</a>
-        <a routerLink="/registro">Registrarse</a>
-      </ng-container>
-
-      <!-- Si SÍ está logueado, muestra el acceso a "Mis compras", el usuario y logout -->
-      <ng-container *ngIf="logeado">
-
-        <!-- Enlace al historial de compras del usuario -->
-        <a routerLink="/mis-compras">Mis compras</a>
-
-        <!-- Nombre del usuario -->
-        <span class="user">
-          Hola, {{ usuario?.nombre }}
-        </span>
-
-        <!-- Botón para cerrar sesión -->
-        <button class="logout-btn" (click)="logout()">
-          Cerrar sesión
-        </button>
-
-      </ng-container>
-    </nav>
-  </header>
+  <!-- CABECERA - Ahora es un componente separado -->
+  <app-header 
+    [logeado]="logeado" 
+    [usuario]="usuario"
+    (cerrarSesion)="logout()">
+  </app-header>
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="content">
 
-    <!-- IZQUIERDA: categorías -->
-    <!-- Las categorías se ven siempre para poder filtrar desde la home -->
-    <aside class="left">
-      <app-categorias (seleccionarCategoria)="filtrarporcategoria($event)"></app-categorias>
-    </aside>
+    <!-- IZQUIERDA: categorías - Ahora es un componente intermedio -->
+    <app-latizq (seleccionarCategoria)="filtrarporcategoria($event)"></app-latizq>
 
     <!-- CENTRO -->
     <main class="center">
@@ -60,25 +27,14 @@
 
     </main>
 
-    <!-- DERECHA: carrito -->
-    <!-- Solo se muestra si el usuario está logueado -->
-    <aside class="right" *ngIf="logeado; else avisoCarrito">
-      <app-carrito></app-carrito>
-    </aside>
-
-    <!-- Si no está logueado, muestra aviso -->
-    <ng-template #avisoCarrito>
-      <aside class="right">
-        <div class="carrito-aviso">
-          Inicia sesión para ver el carrito.
-        </div>
-      </aside>
-    </ng-template>
+    <!-- DERECHA: carrito - Ahora es un componente intermedio -->
+    <app-latder [logeado]="logeado"></app-latder>
 
   </div>
 
- <footer>
-  <app-footer></app-footer>
- </footer>
+  <!-- FOOTER -->
+  <footer>
+    <app-footer></app-footer>
+  </footer>
 
 </div>

@@ -1,9 +1,12 @@
+// Importa mongoose para conectar con MongoDB
 const mongoose = require('mongoose');
 
-const URI = 'mongodb://localhost:27017/cruddb';
+// URI de conexión a MongoDB
+const URI = process.env.MONGO_URI || 'mongodb://localhost:27017/tienda-vehiculos';
 
-mongoose.connect('mongodb://localhost:27017/tienda-vehiculos')
+// Conecta a MongoDB
+mongoose.connect(URI)
   .then(() => console.log('✔ MongoDB conectada'))
-  .catch(err => console.error(err));
+  .catch(err => console.error('❌ Error conectando MongoDB:', err));
 
 module.exports = mongoose;

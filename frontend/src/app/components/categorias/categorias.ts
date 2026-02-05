@@ -1,13 +1,8 @@
 // Importa Component y EventEmitter para emitir la categoría seleccionada
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from "@angular/core";
-
 // Importa CommonModule para *ngFor y *ngIf
 import { CommonModule } from "@angular/common";
-
-// Importa Subscription para limpiar suscripciones
 import { Subscription } from "rxjs";
-
-// Importa el servicio de vehículos (para pedir categorías y escuchar cambios)
 import { VehiculosService } from "../../services/vehiculos.service";
 
 @Component({

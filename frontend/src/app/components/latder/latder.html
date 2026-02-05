@@ -1,0 +1,13 @@
+<!-- Solo se muestra el carrito si el usuario está logueado -->
+<aside class="right" *ngIf="logeado; else avisoCarrito">
+  <app-carrito></app-carrito>
+</aside>
+
+<!-- Si no está logueado, muestra aviso -->
+<ng-template #avisoCarrito>
+  <aside class="right">
+    <div class="carrito-aviso">
+      Inicia sesión para ver el carrito.
+    </div>
+  </aside>
+</ng-template>

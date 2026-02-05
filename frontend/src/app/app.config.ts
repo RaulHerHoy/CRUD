@@ -45,7 +45,7 @@ export const appConfig: ApplicationConfig = {
         return () => {
           // Si hay usuario guardado, cargamos SU carrito
           const u = usuarios.obtenerUsuario();
-          const userId = u?._id ?? u?.id ?? u?.email ?? null;
+          const userId = u?._id ?? u?.email ?? null;
 
           // ⚠️ IMPORTANTE:
           // aquí SOLO cargamos, NO vaciamos

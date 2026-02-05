@@ -1,0 +1,19 @@
+/* ASIDE DERECHO con color suave */
+.right {
+  background: linear-gradient(180deg, var(--aside), #dfe8f5);
+  border: 1px solid var(--aside-border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Aviso carrito */
+.carrito-aviso {
+  padding: 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  background: var(--warning-soft);
+  border: 1px solid rgba(245,158,11,0.28);
+  color: #92400e;
+  font-weight: 650;
+}

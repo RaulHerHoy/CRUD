@@ -1,33 +1,7 @@
-// Importa Injectable para poder inyectar este servicio en cualquier componente
-// Importa inject y PLATFORM_ID para detectar en qué plataforma se está ejecutando (navegador/servidor)
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
-
-// Importa isPlatformBrowser para comprobar si estamos en el navegador (y no en SSR)
 import { isPlatformBrowser } from '@angular/common';
-
-// Importa BehaviorSubject para mantener y emitir el estado del carrito en tiempo real
 import { BehaviorSubject } from 'rxjs';
-
-// Define el tipo de dato que representa un item dentro del carrito
-export type CarritoItem = {
-  // Id del vehículo
-  _id: string;
-
-  // Marca del vehículo
-  marca: string;
-
-  // Modelo del vehículo
-  modelo: string;
-
-  // Precio unitario del vehículo
-  precio: number;
-
-  // URL de imagen (opcional)
-  imagen?: string;
-
-  // Cantidad de ese vehículo dentro del carrito
-  cantidad: number;
-};
+import { CarritoItem } from '../models/carrito-item';
 
 @Injectable({
   // Indica que Angular creará una única instancia global del servicio (singleton)

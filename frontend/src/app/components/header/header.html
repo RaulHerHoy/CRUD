@@ -1,0 +1,35 @@
+<header class="header">
+
+  <!-- Título -->
+  <h1>Tienda de Vehículos</h1>
+
+  <!-- Navegación -->
+  <nav>
+    <!-- Enlace a inicio -->
+    <a routerLink="/">Inicio</a>
+
+    <!-- Si NO está logueado, muestra login y registro -->
+    <ng-container *ngIf="!logeado">
+      <a routerLink="/login">Iniciar sesión</a>
+      <a routerLink="/registro">Registrarse</a>
+    </ng-container>
+
+    <!-- Si SÍ está logueado, muestra el acceso a "Mis compras", el usuario y logout -->
+    <ng-container *ngIf="logeado">
+
+      <!-- Enlace al historial de compras del usuario -->
+      <a routerLink="/mis-compras">Mis compras</a>
+
+      <!-- Nombre del usuario -->
+      <span class="user">
+        Hola, {{ usuario?.nombre }}
+      </span>
+
+      <!-- Botón para cerrar sesión -->
+      <button class="logout-btn" (click)="logout()">
+        Cerrar sesión
+      </button>
+
+    </ng-container>
+  </nav>
+</header>

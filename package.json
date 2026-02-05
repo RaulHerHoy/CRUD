@@ -1,18 +1,22 @@
 {
-  "name": "crud",
+  "name": "tienda-vehiculos-backend",
   "version": "1.0.0",
-  "main": "server/index.js",
+  "description": "API REST para tienda de vehículos - Proyecto de clase MEAN",
+  "main": "index.js",
   "scripts": {
+    "start": "node server/index.js",
     "dev": "nodemon server/index.js"
   },
+  "keywords": ["express", "mongodb", "crud", "mean-stack"],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^3.0.3",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.3",
     "cors": "^2.8.5",
-    "express": "^4.22.1",
-    "mongoose": "^8.20.1",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.9"
   }
 }

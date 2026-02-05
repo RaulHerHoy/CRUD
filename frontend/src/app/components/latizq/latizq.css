@@ -1,0 +1,8 @@
+/* ASIDE IZQUIERDO con color suave */
+.left {
+  background: linear-gradient(180deg, var(--aside), #dfe8f5);
+  border: 1px solid var(--aside-border);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: var(--shadow-soft);
+}

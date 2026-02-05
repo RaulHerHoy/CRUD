@@ -1,17 +1,14 @@
 // Importa Component para crear el componente
 import { Component } from '@angular/core';
-
 // Importa CommonModule para *ngIf, *ngFor, etc.
 import { CommonModule } from '@angular/common';
-
 // Importa Router para redirigir si no está logueado
 import { Router } from '@angular/router';
-
 // Importa VentasService para pedir el historial
 import { VentasService } from '../../services/ventas.service';
-
 // Importa UsuariosService para leer el usuario desde LocalStorage
 import { UsuariosService } from '../../services/usuarios.service';
+import { Venta } from '../../models/venta';
 
 @Component({
   selector: 'app-mis-compras',
@@ -23,7 +20,7 @@ import { UsuariosService } from '../../services/usuarios.service';
 export class MisCompras {
 
   // Lista de compras (usuario normal: suyas | admin: todas)
-  compras: any[] = [];
+  compras: Venta[] = [];
 
   // Estados de UI
   loading = true;
@@ -97,18 +94,20 @@ export class MisCompras {
   // ==========================================
   // ACORDEÓN
   // ==========================================
-  toggleVenta(id: string): void {
+  toggleVenta(id: string | undefined): void {
+    if (!id) return;
     this.ventaAbiertaId = (this.ventaAbiertaId === id) ? null : id;
   }
 
-  estaAbierta(id: string): boolean {
+  estaAbierta(id: string | undefined): boolean {
+    if (!id) return false;
     return this.ventaAbiertaId === id;
   }
 
   // Total de unidades de una venta
-  unidades(venta: any): number {
+  unidades(venta: Venta): number {
     return (venta?.lineas || []).reduce(
-      (acc: number, l: any) => acc + Number(l.cantidad || 0),
+      (acc, l) => acc + Number(l.cantidad || 0),
       0
     );
   }
@@ -116,8 +115,9 @@ export class MisCompras {
   // ==========================================
   // SOLO ADMIN → BORRAR COMPRA
   // ==========================================
-  borrarVenta(id: string): void {
+  borrarVenta(id: string | undefined): void {
     if (!this.esAdmin) return;
+    if (!id) return;
 
     const ok = confirm('¿Eliminar esta compra?');
     if (!ok) return;

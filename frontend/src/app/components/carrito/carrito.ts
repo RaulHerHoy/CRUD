@@ -1,27 +1,20 @@
-// Importa Component y OnDestroy para manejar el ciclo de vida del componente
 import { Component, OnDestroy } from '@angular/core';
-
 // Importa CommonModule para usar directivas como *ngIf y *ngFor en el HTML
 import { CommonModule } from '@angular/common';
-
-// Importa Subscription para cancelar la suscripción cuando el componente se destruye
 import { Subscription } from 'rxjs';
-
-// Importa CarritoService y el tipo CarritoItem
-import { CarritoService, CarritoItem } from '../../services/carrito.service';
-
-// Importa VentasService y el tipo LineaVentaDTO para crear la venta
-import { VentasService, LineaVentaDTO } from '../../services/ventas.service';
-
-// Importa UsuariosService para obtener el usuario logueado desde LocalStorage
+import { CarritoService } from '../../services/carrito.service';
+import { VentasService } from '../../services/ventas.service';
 import { UsuariosService } from '../../services/usuarios.service';
+import { CarritoItem } from '../../models/carrito-item';
+import { VehiculoVenta } from '../../models/vehiculo-venta';
+import { Carrito as CarritoDTO } from '../../models/carrito';
 
 @Component({
-  selector: 'app-carrito',            // Selector del componente
-  standalone: true,                   // Componente standalone
-  imports: [CommonModule],            // Módulos que usa el template
-  templateUrl: './carrito.html',      // HTML del carrito
-  styleUrl: './carrito.css'           // CSS del carrito
+  selector: 'app-carrito',            
+  standalone: true,                   
+  imports: [CommonModule],            
+  templateUrl: './carrito.html',     
+  styleUrl: './carrito.css'          
 })
 export class Carrito implements OnDestroy {
 
@@ -87,18 +80,22 @@ export class Carrito implements OnDestroy {
     }
 
     // Construye las líneas de venta a partir del carrito
-    const lineas: LineaVentaDTO[] = this.items.map(item => ({
-      vehiculoId: item._id,                          // Id del vehículo
-      titulo: `${item.marca} ${item.modelo}`,        // Texto para mostrar
-      precio: item.precio,                           // Precio unitario
-      cantidad: item.cantidad                        // Cantidad comprada
-    }));
+    const lineas: VehiculoVenta[] = this.items.map(item => {
+      const vehiculoVenta = new VehiculoVenta();
+      vehiculoVenta.vehiculoId = item._id;
+      vehiculoVenta.titulo = `${item.marca} ${item.modelo}`;
+      vehiculoVenta.precio = item.precio;
+      vehiculoVenta.cantidad = item.cantidad;
+      return vehiculoVenta;
+    });
 
-    // Envía la venta al backend con usuarioId + lineas
-    this.ventas.crearVenta({
-      usuarioId: usuario._id, //  se envía el id del usuario para asociar la venta
-      lineas
-    }).subscribe({
+    // Crea el objeto CarritoDTO para enviar al backend
+    const carritoVenta = new CarritoDTO();
+    carritoVenta.usuarioId = usuario._id;
+    carritoVenta.lineas = lineas;
+
+    // Envía la venta al backend
+    this.ventas.crearVenta(carritoVenta).subscribe({
       next: () => {
         // Si la venta se crea bien, avisamos y vaciamos carrito
         alert('Compra realizada correctamente');

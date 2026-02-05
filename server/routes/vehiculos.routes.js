@@ -1,96 +1,26 @@
 // Importa Express para crear el router
 const router = require("express").Router();
 
-// Importa el modelo Vehiculo
-const Vehiculo = require("../models/vehiculo");
-
-
-// ==================================================
-// GET /api/vehiculos
-// Devuelve TODOS los vehículos (listado principal)
-// ==================================================
-router.get("/", async (req, res) => {
-  try {
-    const vehiculos = await Vehiculo.find();
-    res.json(vehiculos);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: "Error obteniendo vehículos" });
-  }
-});
-
+// Importa el controlador de vehículos
+const ctrl = require("../controllers/vehiculos.controlador");
 
 // ==================================================
-// GET /api/vehiculos/categorias
-// Devuelve categorías únicas (para el filtro dinámico)
+// RUTAS - Solo enrutamiento, lógica en controlador
 // ==================================================
-router.get("/categorias", async (req, res) => {
-  try {
-    const categorias = await Vehiculo.distinct("categoria");
 
-    const limpias = categorias
-      .filter(c => typeof c === "string" && c.trim().length > 0)
-      .map(c => c.trim())
-      .sort((a, b) => a.localeCompare(b));
+// GET /api/vehiculos - Listar todos
+router.get("/", ctrl.listar);
 
-    res.json(limpias);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ msg: "Error obteniendo categorías" });
-  }
-});
+// GET /api/vehiculos/categorias - Categorías únicas
+router.get("/categorias", ctrl.obtenerCategorias);
 
+// POST /api/vehiculos - Crear (admin)
+router.post("/", ctrl.crear);
 
-// ==================================================
-// POST /api/vehiculos
-// Crea un vehículo nuevo (ADMIN)
-// ==================================================
-router.post("/", async (req, res) => {
-  try {
-    const nuevo = new Vehiculo(req.body);
-    await nuevo.save();
-    res.status(201).json(nuevo);
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ msg: "Error creando vehículo" });
-  }
-});
+// PUT /api/vehiculos/:id - Actualizar (admin)
+router.put("/:id", ctrl.actualizar);
 
+// DELETE /api/vehiculos/:id - Eliminar (admin)
+router.delete("/:id", ctrl.eliminar);
 
-// ==================================================
-// PUT /api/vehiculos/:id
-// Actualiza un vehículo existente (ADMIN)
-// ==================================================
-router.put("/:id", async (req, res) => {
-  try {
-    const actualizado = await Vehiculo.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
-    );
-
-    res.json(actualizado);
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ msg: "Error actualizando vehículo" });
-  }
-});
-
-
-// ==================================================
-// DELETE /api/vehiculos/:id
-// Elimina un vehículo (ADMIN)
-// ==================================================
-router.delete("/:id", async (req, res) => {
-  try {
-    await Vehiculo.findByIdAndDelete(req.params.id);
-    res.json({ msg: "Vehículo eliminado" });
-  } catch (err) {
-    console.error(err);
-    res.status(400).json({ msg: "Error eliminando vehículo" });
-  }
-});
-
-
-// Exporta el router
 module.exports = router;
